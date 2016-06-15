@@ -19,8 +19,8 @@ angular.module('app.routes', [])
     url: '/index',
     views: {
       'tabIndex': {
-        templateUrl: 'templates/main_index.html',
-        controller: 'mainIndexCtrl'
+        templateUrl: 'js/src/index/views/main_index.html',
+        controller: 'MainIndexCtrl'
       }
     }
   })
@@ -35,8 +35,8 @@ angular.module('app.routes', [])
             return HospitalService.getDefaultHospital();
           }
         },
-        templateUrl: 'templates/hospital/detail.html',
-        controller: 'hosDetailCtrl'
+        templateUrl: 'js/src/hospital/views/detail.html',
+        controller: 'HosDetailCtrl'
       }
     }
   })
@@ -50,8 +50,8 @@ angular.module('app.routes', [])
             return HospitalService.getHospitalById($stateParams.id);
           }
         },
-        templateUrl: 'templates/hospital/detail.html',
-        controller: "hosDetailCtrl"
+        templateUrl: 'js/src/hospital/views/detail.html',
+        controller: "HosDetailCtrl"
       }
     }
   })
@@ -62,8 +62,8 @@ angular.module('app.routes', [])
     cache: false,
     views: {
       'tabMedicalrecored': {
-        templateUrl: 'templates/main_medicalrecored.html',
-        controller: 'mainMedicalrecordCtrl'
+        templateUrl: 'js/src/medicalrecoreds/views/main_medicalrecored.html',
+        controller: 'MainMedicalrecordCtrl'
       }
     }
   })
@@ -73,8 +73,8 @@ angular.module('app.routes', [])
     url: '/news',
     views: {
       'tabNews': {
-        templateUrl: 'templates/main_news.html',
-        controller: 'mainNewsCtrl'
+        templateUrl: 'js/src/news/views/main_news.html',
+        controller: 'MainNewsCtrl'
       }
     }
   })
@@ -83,8 +83,8 @@ angular.module('app.routes', [])
     url: '/news/:newsId',
     views: {
       'tabNews': {
-        templateUrl: 'templates/news/news_detail.html',
-        controller: 'newsDetailCtrl'
+        templateUrl: 'js/src/news/views/news_detail.html',
+        controller: 'NewsDetailCtrl'
       }
     }
   })
@@ -95,8 +95,8 @@ angular.module('app.routes', [])
     url: '/my',
     views: {
       'tabMy': {
-        templateUrl: 'templates/main_my.html',
-        controller: 'mainMyCtrl'
+        templateUrl: 'js/src/user/views/main_my.html',
+        controller: 'MainMyCtrl'
       }
     }
   })
@@ -104,29 +104,29 @@ angular.module('app.routes', [])
   //登录页
   .state('login', {
     url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'loginCtrl'
+    templateUrl: 'js/src/user/views/login.html',
+    controller: 'LoginCtrl'
   })
 
   //注册页
   .state('signup', {
     url: '/signup',
-    templateUrl: 'templates/signup.html',
-    controller: 'signupCtrl'
+    templateUrl: 'js/src/user/views/signup.html',
+    controller: 'SignupCtrl'
   })
 
   //消息列表页
   .state('messages', {
     url: '/messages',
-    templateUrl: 'templates/message/messages.html',
-    controller: 'messagesCtrl'
+    templateUrl: 'js/src/message/views/messages.html',
+    controller: 'MessagesCtrl'
   })
 
   //搜索页
   .state('searchHosAndDoc', {
     url: '/searchHosAndDoc',
-    templateUrl: 'templates/search/search_hosanddoc.html',
-    controller: 'searchHosAndDocCtrl'
+    templateUrl: 'js/src/hospital/views/search_hosanddoc.html',
+    controller: 'SearchHosAndDocCtrl'
   })
 
 

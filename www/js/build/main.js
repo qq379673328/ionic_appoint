@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives'], function($httpProvider){
+var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.commonservices', 'app.directives'], function($httpProvider){
 
   // Use x-www-form-urlencoded Content-Type
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -129,104 +129,6 @@ app.config(function($ionicConfigProvider) {
 app.constant('APPCONFIG', {
   SERVER_URL_PRE: "http://localhost:8100/api"
 });
-angular.module('app.controllers', [])
-     
-.controller('mainIndexCtrl', function($scope, $state) {
-	$scope.toSearch = function(){
-		$state.go("searchHosAndDoc");
-	};
-})
-   
-//就诊记录主页面
-.controller('mainMedicalrecordCtrl', function($scope, $stateParams, MedicalRecordService, PatientService) {
-
-	$scope.patientId = $stateParams.patientId;
-	$scope.patient = null;
-
-	//刷新页面
-	$scope.doRefresh = function(cb){
-		if($scope.patient){
-			$scope.loadMedicalRecored()
-		}else{
-			if($scope.patientId){
-				//获取就诊人
-				PatientService.getPatientById(patientId).then(function(patient){
-					$scope.patient = patient;
-					$scope.loadMedicalRecored()
-				});
-			}else{
-				//获取当前就诊人
-				PatientService.getCurrentPatient().then(function(patient){
-					$scope.patient = patient;
-					$scope.loadMedicalRecored()
-				});
-			}
-		}
-	};
-
-	//加载就诊数据
-	$scope.loadMedicalRecored = function(){
-		if($scope.patient){
-			MedicalRecordService.getOutpatientRecords($scope.patient.idNo).then(function(data){
-				$scope.records = data
-				$scope.$broadcast('scroll.refreshComplete');
-			});
-		}
-	};
-
-	//进入页面刷新
-	$scope.doRefresh();
-
-})
-      
-.controller('mainNewsCtrl', function($scope) {
-
-})
-   
-.controller('mainMyCtrl', function($scope) {
-
-})
- 
- //登录
-.controller('loginCtrl', function($scope, UserService, $cordovaToast) {	
-	$scope.loginParams = {username:null, password: null};
-	$scope.login = function(){
-		UserService.login($scope.loginParams);
-	};
-})
-
- //搜索医院和医生
-.controller('searchHosAndDocCtrl', function($scope, $stateParams, HospitalService, DoctorService) {
-	
-	$scope.search = function(){
-		HospitalService.getHospitals({keyWord: $scope.searchStr})
-		.then(function(data){
-			$scope.hospitals = data.hospitalSimples;
-		});
-		DoctorService.getDoctors({keyWord: $scope.searchStr})
-		.then(function(data){
-			$scope.doctors = data.doctors;
-		});
-	};
-
-})
-
- //消息列表页
-.controller('messagesCtrl', function($scope, MessageService) {
-	MessageService.getUnreadMessages().then(function(data){
-		$scope.messages = data.data.message;
-	});
-})
-
- //医院-详情
-.controller('hosDetailCtrl', function($scope, hos) {
-	$scope.hos = hos;
-})
-   
-.controller('signupCtrl', function($scope) {
-
-})
- 
 angular.module('app.directives', [])
 
 .directive('blankDirective', [function(){
@@ -255,8 +157,8 @@ angular.module('app.routes', [])
     url: '/index',
     views: {
       'tabIndex': {
-        templateUrl: 'templates/main_index.html',
-        controller: 'mainIndexCtrl'
+        templateUrl: 'js/src/index/views/main_index.html',
+        controller: 'MainIndexCtrl'
       }
     }
   })
@@ -271,8 +173,8 @@ angular.module('app.routes', [])
             return HospitalService.getDefaultHospital();
           }
         },
-        templateUrl: 'templates/hospital/detail.html',
-        controller: 'hosDetailCtrl'
+        templateUrl: 'js/src/hospital/views/detail.html',
+        controller: 'HosDetailCtrl'
       }
     }
   })
@@ -286,8 +188,8 @@ angular.module('app.routes', [])
             return HospitalService.getHospitalById($stateParams.id);
           }
         },
-        templateUrl: 'templates/hospital/detail.html',
-        controller: "hosDetailCtrl"
+        templateUrl: 'js/src/hospital/views/detail.html',
+        controller: "HosDetailCtrl"
       }
     }
   })
@@ -298,8 +200,8 @@ angular.module('app.routes', [])
     cache: false,
     views: {
       'tabMedicalrecored': {
-        templateUrl: 'templates/main_medicalrecored.html',
-        controller: 'mainMedicalrecordCtrl'
+        templateUrl: 'js/src/medicalrecoreds/views/main_medicalrecored.html',
+        controller: 'MainMedicalrecordCtrl'
       }
     }
   })
@@ -309,8 +211,8 @@ angular.module('app.routes', [])
     url: '/news',
     views: {
       'tabNews': {
-        templateUrl: 'templates/main_news.html',
-        controller: 'mainNewsCtrl'
+        templateUrl: 'js/src/news/views/main_news.html',
+        controller: 'MainNewsCtrl'
       }
     }
   })
@@ -319,8 +221,8 @@ angular.module('app.routes', [])
     url: '/news/:newsId',
     views: {
       'tabNews': {
-        templateUrl: 'templates/news/news_detail.html',
-        controller: 'newsDetailCtrl'
+        templateUrl: 'js/src/news/views/news_detail.html',
+        controller: 'NewsDetailCtrl'
       }
     }
   })
@@ -331,8 +233,8 @@ angular.module('app.routes', [])
     url: '/my',
     views: {
       'tabMy': {
-        templateUrl: 'templates/main_my.html',
-        controller: 'mainMyCtrl'
+        templateUrl: 'js/src/user/views/main_my.html',
+        controller: 'MainMyCtrl'
       }
     }
   })
@@ -340,29 +242,29 @@ angular.module('app.routes', [])
   //登录页
   .state('login', {
     url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'loginCtrl'
+    templateUrl: 'js/src/user/views/login.html',
+    controller: 'LoginCtrl'
   })
 
   //注册页
   .state('signup', {
     url: '/signup',
-    templateUrl: 'templates/signup.html',
-    controller: 'signupCtrl'
+    templateUrl: 'js/src/user/views/signup.html',
+    controller: 'SignupCtrl'
   })
 
   //消息列表页
   .state('messages', {
     url: '/messages',
-    templateUrl: 'templates/message/messages.html',
-    controller: 'messagesCtrl'
+    templateUrl: 'js/src/message/views/messages.html',
+    controller: 'MessagesCtrl'
   })
 
   //搜索页
   .state('searchHosAndDoc', {
     url: '/searchHosAndDoc',
-    templateUrl: 'templates/search/search_hosanddoc.html',
-    controller: 'searchHosAndDocCtrl'
+    templateUrl: 'js/src/hospital/views/search_hosanddoc.html',
+    controller: 'SearchHosAndDocCtrl'
   })
 
 
@@ -371,11 +273,7 @@ angular.module('app.routes', [])
     ;
 
 });
-angular.module('app.services', [])
-
-.factory('BlankFactory', function(){
-
-})
+angular.module('app.commonservices', [])
 
 /**
 公共组件
@@ -573,21 +471,45 @@ angular.module('app.services', [])
 })
 
 
-/*业务service*/
-//资讯
-.service('NewsService', function(UTIL_HTTP){
+;
+ //搜索医院和医生
+app.controller('SearchHosAndDocCtrl', function($scope, $stateParams, HospitalService, DoctorService) {
+	
+	$scope.search = function(){
+		HospitalService.getHospitals({keyWord: $scope.searchStr})
+		.then(function(data){
+			$scope.hospitals = data.hospitalSimples;
+		});
+		DoctorService.getDoctors({keyWord: $scope.searchStr})
+		.then(function(data){
+			$scope.doctors = data.doctors;
+		});
+	};
+
+})
+//医生
+app.service('DoctorService', function(UTIL_HTTP){
 	return {
-		getNews : function(cb){
+		getDoctors : function(params){
 			return UTIL_HTTP.get({
-				url: "/arrayJob/default"
+				url: "/doctor",
+				data: params
+			})
+		},
+		getDoctorById: function(doctorId, cb){
+			return UTIL_HTTP.get({
+				url: "/doctor/" + doctorId
 			});
 		}
 	};
 		
 })
-
+ //医院-详情
+app.controller('HosDetailCtrl', function($scope, hos) {
+	$scope.hos = hos;
+})
 //医院
-.service('HospitalService', function(UTIL_HTTP){
+app.service('HospitalService', function(UTIL_HTTP){
 	return {
 		getHospitals : function(params){
 			return UTIL_HTTP.get({
@@ -608,27 +530,55 @@ angular.module('app.services', [])
 	};
 		
 })
+//首页
+app.controller('MainIndexCtrl', function($scope, $state) {
+	$scope.toSearch = function(){
+		$state.go("searchHosAndDoc");
+	};
+})
+//就诊记录主页面
+app.controller('MainMedicalrecordCtrl', function($scope, $stateParams, MedicalRecordService, PatientService) {
 
-//医生
-.service('DoctorService', function(UTIL_HTTP){
-	return {
-		getDoctors : function(params){
-			return UTIL_HTTP.get({
-				url: "/doctor",
-				data: params
-			})
-		},
-		getDoctorById: function(doctorId, cb){
-			return UTIL_HTTP.get({
-				url: "/doctor/" + doctorId
+	$scope.patientId = $stateParams.patientId;
+	$scope.patient = null;
+
+	//刷新页面
+	$scope.doRefresh = function(cb){
+		if($scope.patient){
+			$scope.loadMedicalRecored()
+		}else{
+			if($scope.patientId){
+				//获取就诊人
+				PatientService.getPatientById(patientId).then(function(patient){
+					$scope.patient = patient;
+					$scope.loadMedicalRecored()
+				});
+			}else{
+				//获取当前就诊人
+				PatientService.getCurrentPatient().then(function(patient){
+					$scope.patient = patient;
+					$scope.loadMedicalRecored()
+				});
+			}
+		}
+	};
+
+	//加载就诊数据
+	$scope.loadMedicalRecored = function(){
+		if($scope.patient){
+			MedicalRecordService.getOutpatientRecords($scope.patient.idNo).then(function(data){
+				$scope.records = data
+				$scope.$broadcast('scroll.refreshComplete');
 			});
 		}
 	};
-		
-})
 
+	//进入页面刷新
+	$scope.doRefresh();
+
+})
 //就诊记录
-.service('MedicalRecordService', function(UTIL_HTTP){
+app.service('MedicalRecordService', function(UTIL_HTTP){
 		
 	return {
 		//就诊记录列表
@@ -670,9 +620,14 @@ angular.module('app.services', [])
 	};
 
 })
-
+ //消息列表页
+app.controller('MessagesListCtrl', function($scope, MessageService) {
+	MessageService.getUnreadMessages().then(function(data){
+		$scope.messages = data.data.message;
+	});
+})
 //消息
-.service('MessageService', function(UTIL_HTTP){
+app.service('MessageService', function(UTIL_HTTP){
 	return {
 		getUnreadMessages : function(){
 			return UTIL_HTTP.get({
@@ -682,9 +637,40 @@ angular.module('app.services', [])
 	};
 		
 })
+//资讯列表首页
+app.controller('MainNewsCtrl', function($scope) {
+
+})
+//资讯
+app.service('NewsService', function(UTIL_HTTP){
+	return {
+		getNews : function(cb){
+			return UTIL_HTTP.get({
+				url: "/arrayJob/default"
+			});
+		}
+	};
+		
+})
+ //登录
+app.controller('LoginCtrl', function($scope, UserService, $cordovaToast) {	
+	$scope.loginParams = {username:null, password: null};
+	$scope.login = function(){
+		UserService.login($scope.loginParams);
+	};
+})
+
+//我的-首页
+app.controller('MainMyCtrl', function($scope) {
+
+})
+ //注册
+app.controller('SignupCtrl', function($scope, UserService, $cordovaToast) {	
+	
+})
 
 //就诊人
-.service('PatientService', function(UTIL_HTTP){
+app.service('PatientService', function(UTIL_HTTP){
 	return {
 		//获取当前就诊人
 		getCurrentPatient : function(){
@@ -722,9 +708,8 @@ angular.module('app.services', [])
 	};
 		
 })
-
 //用户
-.service('UserService', function(UTIL_HTTP, UTIL_USER, $state, $stateParams){
+app.service('UserService', function(UTIL_HTTP, UTIL_USER, $state, $stateParams){
 	return {
 		//登录
 		login : function(params){
@@ -765,5 +750,3 @@ angular.module('app.services', [])
 	};
 
 })
-
-;
