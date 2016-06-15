@@ -2,32 +2,35 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var bower = require('bower');
 var concat = require('gulp-concat');
-var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var uglify = require('gulp-uglify');
+var clean = require('gulp-clean');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  js_src: ['www/js/src/**/*.js'],
+  js_build: 'www/js/build'
 };
 
-gulp.task('default', ['sass']);
+// gulp.task('default', ['sass']);
+gulp.task('default', ['watch']);
 
-gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
-    .pipe(sass())
-    .on('error', sass.logError)
-    .pipe(gulp.dest('./www/css/'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'))
-    .on('end', done);
+//js 合并压缩
+gulp.task('minify', function (){
+     return gulp.src(paths.js_src)
+        .pipe(concat('main.js'))
+        .pipe(gulp.dest(paths.js_build))
+        .pipe(uglify())
+        .pipe(rename('main.min.js'))
+        .pipe(gulp.dest(paths.js_build));
 });
-
 gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.js_src, ['minify']);
+});
+//清空发布
+gulp.task('clean', function () {
+	gulp.src(paths.js_build, {read: false}).pipe(clean());
 });
 
 gulp.task('install', ['git-check'], function() {
