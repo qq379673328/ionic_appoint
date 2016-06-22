@@ -62,4 +62,4 @@ app.controller('SearchHosCtrl', function($scope, $state, $stateParams, APPCONFIG
 		}
 	};
 	
-})
+});

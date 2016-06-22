@@ -160,9 +160,84 @@ angular.module('app.routes', [])
     url: '/searchHosAndDoc',
     templateUrl: 'js/src/hospital/views/search_hosanddoc.html',
     controller: 'SearchHosAndDocCtrl'
-  })
+  })	
+	
+		//找医院页
+	.state('searchHos',{
+		url:'/searchHos',
+		templateUrl:'js/src/hospital/views/search_hos.html',
+		controller:'SearchHosCtrl'
+	})
+	
+		//找医生页
+	.state('searchDoctor',{
+		url:'/searchDoctor',
+		templateUrl:'js/src/doctor/views/search_doc.html',
+		controller:'SearchDoctorCtrl'
+	})
+	
+	//查药价页
+	.state('searchDurgPrice',{
+		url:'/searchDurgPrice',
+		templateUrl:'js/src/durg/views/search_durg_price.html',
+		controller:'SearchDurgPriceCtrl'
+	})
+	
+	//查服务价页
+	.state('searchServicePrice',{
+		url:'/searchServicePrice',
+		templateUrl:'js/src/durg/views/search_service_price.html',
+		controller:'SearchServicePriceCtrl'
+	})
 
-
+	//预约挂号页
+	.state('appointMent',{
+		url:'/appointMent',
+		templateUrl:'js/src/appoint/views/appoint_ment.html',
+		controller:'AppointMentCtrl'
+	})
+	
+	//预约选医院页
+	.state('appointHos',{
+		url:'/appointHos',
+		templateUrl:'js/src/appoint/views/appoint_hos.html',
+		controller:'AppointHosCtrl'
+	})
+	
+	//预约选科室
+	.state('appointDepart',{
+		url:'/appointDepart',
+		templateUrl:'js/src/appoint/views/appoint_depart.html',
+		controller:'AppointDepartCtrl'
+	})
+	
+	//预约选日期及时间段
+	.state('appointDate',{
+		url:'/appointDate',
+		templateUrl:'js/src/appoint/views/appoint_date.html',
+		controller:'AppointDateCtrl'
+	})
+	
+	//预约确认信息(详情)页
+	.state('appointMentDatail',{
+		url:'/appointMentDatail',
+		templateUrl:'js/src/appoint/views/appointment_datail.html',
+		controller:'AppointMentDatailCtrl'
+	})
+	
+	//预约成功页
+	.state('appointSuccess',{
+		url:'/appointSuccess',
+		templateUrl:'js/src/appoint/views/appoint_success.html',
+		controller:'AppointSuccessCtrl'
+	})
+	
+	//预约成功详情页
+	.state('appointSuccessDatail',{
+		url:'/appointSuccessDatail',
+		templateUrl:'js/src/appoint/views/appoint_success_datail.html',
+		controller:'AppointSuccessDatailCtrl'
+	})
   $urlRouterProvider
     .otherwise('/tab/index')
     ;
