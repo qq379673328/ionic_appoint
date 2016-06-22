@@ -7,7 +7,7 @@ app.service('DoctorService', function(UTIL_HTTP){
 				data: params
 			})
 		},
-		getDoctorById: function(doctorId, cb){
+		getDoctorById: function(doctorId){
 			return UTIL_HTTP.get({
 				url: "/doctor/" + doctorId
 			});

@@ -127,5 +127,8 @@ app.config(function($ionicConfigProvider) {
 
 //常量
 app.constant('APPCONFIG', {
-  SERVER_URL_PRE: "http://localhost:8100/api"
+  //服务端地址
+  SERVER_URL_PRE: "http://localhost:8100/api",
+  //分页加载每页参数
+  PAGE_SIZE: 10
 });

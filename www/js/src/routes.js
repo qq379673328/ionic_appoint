@@ -28,32 +28,65 @@ angular.module('app.routes', [])
   //主页-医院主站
   .state('tabs.hospital', {
     url: '/hospital',
+    cache: false,
+    params: {hos: null, hosId: null},
     views: {
       'tabHospital': {
-        resolve: {
-          hos: function(HospitalService){
-            return HospitalService.getDefaultHospital();
-          }
-        },
         templateUrl: 'js/src/hospital/views/detail.html',
         controller: 'HosDetailCtrl'
       }
     }
   })
-  //医院-详情页
-  .state('tabs.hospitalDetail', {
-    url: '/hospital/:id',
-    views: {
-      'tabHospital': {
-        resolve: {
-          hos: function(HospitalService, $stateParams){
-            return HospitalService.getHospitalById($stateParams.id);
-          }
-        },
-        templateUrl: 'js/src/hospital/views/detail.html',
-        controller: "HosDetailCtrl"
-      }
-    }
+  //医院切换、医院选择页面
+  .state('hosSearch', {
+    url: '/hosSearch',
+    params: {targetState: "tabs.hospital"},
+    templateUrl: 'js/src/hospital/views/search_hos.html',
+    controller: "SearchHosCtrl"
+  })
+  //药品价格查询
+  .state('drugPriceSearch', {
+    url: '/drugPriceSearch',
+    params: {hos: null},
+    templateUrl: 'js/src/hospital/views/search_drugprice.html',
+    controller: "DrugPriceSearchCtrl"
+  })
+  //服务项目价格查询
+  .state('servItemPriceSearch', {
+    url: '/servItemPriceSearch',
+    params: {hos: null},
+    templateUrl: 'js/src/hospital/views/search_servitemprice.html',
+    controller: "ServItemPriceSearchCtrl"
+  })
+
+  //找大夫、医生选择页面
+  .state('doctorSearch', {
+    url: '/doctorSearch',
+    params: {targetState: "doctorDetail"},
+    templateUrl: 'js/src/doctor/views/doctor_search.html',
+    controller: "SearchDoctorCtrl"
+  })
+  //医生主页面
+  .state('doctorDetail', {
+    url: '/doctorDetail',
+    params: {doctor: null, doctorId: null},
+    templateUrl: 'js/src/doctor/views/doctor_detail.html',
+    controller: "DoctorDetailCtrl"
+  })
+
+  //预约挂号-快速
+  .state('appointQuick', {
+    url: '/appointQuick',
+    params: {zone: null},
+    templateUrl: 'js/src/appoint/views/appoint_quick.html',
+    controller: "AppointQuickCtrl"
+  })
+  //预约详情页
+  .state('appointDetail', {
+    url: '/appointDetail',
+    params: {arrayJobId: null},
+    templateUrl: 'js/src/appoint/views/appoint_detail.html',
+    controller: "AppointDetailCtrl"
   })
 
   //主页-记录

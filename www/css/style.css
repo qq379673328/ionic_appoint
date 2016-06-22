@@ -49,3 +49,15 @@ a{
 span{
 	line-height: 1.8;
 }
+
+.custom-item{
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 3px solid #eee;
+}
+
+select{
+	border: none;
+	background: none;
+}

@@ -1,6 +1,5 @@
-
- //医院切换、医院查询
-app.controller('SearchHosCtrl', function($scope, $state, $stateParams, APPCONFIG, HospitalService) {
+ //医生查询、找大夫
+app.controller('SearchDoctorCtrl', function($scope, $state, $stateParams, APPCONFIG, DoctorService) {
 	
 	//是否有更多
 	$scope.hasmore = true;
@@ -14,13 +13,13 @@ app.controller('SearchHosCtrl', function($scope, $state, $stateParams, APPCONFIG
 
 	var targetState = $stateParams.targetState;
 
-	//选择医院跳转页面
+	//选择医生跳转页面
 	if(targetState){
-		$scope.go = function(hospital){
-			if(hospital){
-				hospital.id = hospital.hosId;
+		$scope.go = function(doctor){
+			if(doctor){
+				doctor.doctorId = doctor.id;
 			}
-			$state.go(targetState, {hos: hospital}, {reload: true});
+			$state.go(targetState, {doctor: doctor}, {reload: true});
 		};
 	}
 
@@ -28,20 +27,20 @@ app.controller('SearchHosCtrl', function($scope, $state, $stateParams, APPCONFIG
 	function loadData(isReload, extParams){
 		if(!isRun){
 			isRun = true;
-			HospitalService.getHospitals({
-				hosName: $scope.searchParams.hosName,
-				hosLevel:$scope.searchParams.hosLevel,
-				hosType: $scope.searchParams.hosType,
+			DoctorService.getDoctors({
+				keyWord: $scope.searchParams.keyWord,
+				deptCode: $scope.searchParams.deptCode,
+				titleCode: $scope.searchParams.titleCode,
 				offset: offset
 			})
 			.then(function(data){
-				if(!data.hospitalSimples || data.hospitalSimples.length < APPCONFIG.PAGE_SIZE){
+				if(!data.doctors  || data.doctors.length < APPCONFIG.PAGE_SIZE){
 					$scope.hasmore = false;
 				}
 				if(isReload){//刷新
-					$scope.items = data.hospitalSimples;
+					$scope.items = data.doctors;
 				}else{//加载更多
-					$scope.items = $scope.items.concat(data.hospitalSimples);
+					$scope.items = $scope.items.concat(data.doctors);
 					offset += APPCONFIG.PAGE_SIZE;
 				}
 				isRun = false;
@@ -63,4 +62,4 @@ app.controller('SearchHosCtrl', function($scope, $state, $stateParams, APPCONFIG
 		}
 	};
 	
-});
+})
