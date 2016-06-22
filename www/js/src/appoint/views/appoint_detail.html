@@ -1,0 +1,30 @@
+<ion-view title="预约挂号">
+
+    <ion-content padding="false" class="has-header">
+
+        <h3>恭喜,预约成功！取号密码</h3>
+        <h2>{{appoint.appointmentNo}}</h2>
+
+        <p>
+            温馨提示：
+            1、请在就诊前到医院缴费取号，逾期未取号将影响您的在线预约信用记录。
+            2、退号请在就诊前日晚18:00之前在线进行办理，逾期不能退号，谢谢。
+        </p>
+
+        <div class="row">订单信息</div>
+
+        <div class="row">
+            {{appoint.hosOrgName}} {{appoint.deptName}}
+            {{appoint.arrayjobDate | date: 'yyyy-MM-dd'}} {{appoint.regisrationPeriodDn}} {{appoint.clincName}} {{appoint.expName}}
+            {{appoint.patientname}} {{appoint.gender}}
+            {{appoint.state}}
+
+        </div>
+
+        <div class="row">
+            <button class="button button-balanced button-block" >预约</button>
+            <button ng-if="arrayJob == null" class=" button button-stable  button-block">预约</button>
+        </div>
+
+    </ion-content>
+</ion-view>

@@ -32,13 +32,13 @@
         <img style="width: 100%;" src="img/ad.png">
 
         <div class="row">
-                <div class="col-40 col-center row-center border-right center">
+                <a class="col-40 col-center row-center border-right center" ui-sref="appointQuick">
                     <img src="img/homeyuyue.png" style="width: 40%">
                     <h4><b>预约挂号</b></h4>
                     <h5>当地唯一官方指定专业挂号平台</h5>
-                </div>
+                </a>
                 <div class="col-60">
-                     <div class="row border-bottom">   
+                     <a class="row border-bottom" ui-sref="hosSearch">   
                         <div class="col-60 col-offset-10">
                             <h4><b>找医院</b></h4>
                             <h5>寻找就诊医院</h5>      
@@ -46,8 +46,9 @@
                         <div class="col-40">
                             <img src="img/shouye_03.png" style="width: 60%">
                         </div>
-                    </div>
-                    <div class="row" style="margin-top: 20px;">
+                    </a>
+                    <a class="row" style="margin-top: 20px;"
+                     ui-sref="doctorSearch">
                         <div class="col-60 col-offset-10">
                             <h4><b>找大夫</b></h4>
                             <h5>寻找专家名医</h5>
@@ -55,14 +56,14 @@
                          <div class="col-40">
                             <img src="img/shouye_04.png" style="width: 60%">
                         </div>
-                    </div>
+                    </a>
                 </div>               
         </div>
 
        
         <div class="row">
-            <a class="col button">药品价格查询</a>
-            <a class="col button">服务项目价格查询</a>
+            <a ui-sref="drugPriceSearch" class="col button">药品价格查询</a>
+            <a ui-sref="servItemPriceSearch" class="col button">服务项目价格查询</a>
         </div>
 
     	<div class="row">
