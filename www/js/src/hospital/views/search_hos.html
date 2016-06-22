@@ -1,9 +1,44 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
-</html>
+<ion-view title="找医院">
+
+    <ion-nav-buttons side="left">
+      <div class="buttons">
+        <a class="button icon icon-right ion-arrow-left-c" ui-sref="tabs.index"></a>
+      </div>
+    </ion-nav-buttons>
+
+    <ion-content padding="true" class="has-header">
+        
+        <form class="list padding-horizontal">
+            <label class="item item-input">
+                <input type="search" placeholder="医生" ng-change="search();" ng-model="searchStr">
+                <i class="icon ion-search placeholder-icon padding"></i>
+            </label>
+           <div >
+            	<select ng-model="hosType" >            		
+            		<option value="1" class="item item-options">一级ss</option>
+            		<option value="2" class="item item-options">二级cfc</option>
+            	</select>            	
+            	<select ng-model="hosLevel">            		
+            		<option value="1">ee级</option>
+            		<option value="2">gg级</option>
+            	</select>
+         	</div>
+         	
+         	<div class="list"><label class="item item-input item-select"><div class="input-label">
+      Lightsaber
+    </div><select><option>Blue</option><optionselected>Green</option><option>Red</option></select></label></div>
+        </form>
+
+      
+        <div class="list">
+            <a href="#/tab/hospital/{{hospital.hosId}}" class="item" ng-repeat="hospital in hospitals">
+                <h3>{{hospital.hosOrgName}}</h3>
+                <span>{{hospital.divisioncode}} {{hospital.hosLevel}} {{hospital.hosType}}</span>
+            </a>
+        </div>
+
+       
+        
+
+    </ion-content>
+</ion-view>

@@ -136,6 +136,7 @@ angular.module('app.routes', [])
 		controller:'SearchHosCtrl'
 	})
 	
+	
 		//找医生页
 	.state('searchDoctor',{
 		url:'/searchDoctor',
@@ -204,7 +205,7 @@ angular.module('app.routes', [])
 		url:'/appointSuccessDatail',
 		templateUrl:'js/src/appoint/views/appoint_success_datail.html',
 		controller:'AppointSuccessDatailCtrl'
-	})
+	});
   $urlRouterProvider
     .otherwise('/tab/index')
     ;
