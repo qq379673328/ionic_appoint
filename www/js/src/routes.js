@@ -126,6 +126,7 @@ angular.module('app.routes', [])
   //主页-我的
   .state('tabs.my', {
     url: '/my',
+    cache: false,
     views: {
       'tabMy': {
         templateUrl: 'js/src/user/views/main_my.html',
@@ -133,6 +134,21 @@ angular.module('app.routes', [])
       }
     }
   })
+  //就诊人-列表
+  .state('patientList', {
+    url: '/patient-list',
+    cache: false,
+    templateUrl: 'js/src/user/views/patient_list.html',
+    controller: 'PatientListCtrl'
+  })
+  //就诊人-编辑
+  .state('patientEdit', {
+    url: '/patient-edit',
+    params: {patient: null},
+    templateUrl: 'js/src/user/views/patient_edit.html',
+    controller: 'PatientEditCtrl'
+  })
+
 
   //登录页
   .state('login', {

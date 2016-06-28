@@ -56,11 +56,38 @@ app.controller('SearchHosCtrl', function($scope, $state, $stateParams, APPCONFIG
 		offset = 0;
 		loadData(true);
 	};
+	//监控参数变化
+	$scope.$watch('searchParams', function(newObj, oldObj, scope){
+		$scope.refresh();
+	}, true);
 	//加载更多
 	$scope.loadMore = function(){	
 		if($scope.hasmore){
 			loadData(false);
 		}
 	};
+
+	//下拉控件
+	$scope.selectData = {
+		zone:[//地区
+			{desc: "全部", value: ""},
+			{desc: "廊坊市", value: ""}
+		],
+		level:[//级别
+			{desc: "全部", value: ""},
+			{desc: "三级", value: "3"},
+			{desc: "二级", value: "2"},
+			{desc: "一级", value: "1"}
+		],
+		type: [//类型
+			{desc: "全部", value: ""},
+			{desc: "综合医院", value: "A100"},
+			{desc: "中医医院", value: "A2"},
+			{desc: "中西医结合医院", value: "A300"},
+			{desc: "专科医院", value: "A5"}
+		]
+	};
 	
+
+
 });

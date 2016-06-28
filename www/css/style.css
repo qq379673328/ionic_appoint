@@ -1,12 +1,18 @@
 /* Empty. Add your own CSS if you like */
-
+body{
+	color: #666666;
+	font-family: '微软雅黑 Regular', '微软雅黑';
+}
+body a{
+	color: #666666;
+}
 map {
-  display: block;
-  width: 100%;
-  height: 100%;
+	display: block;
+	width: 100%;
+	height: 100%;
 }
 .scroll {
-  height: 100%;
+	height: 100%;
 }
 .center {
 	text-align: center;
@@ -15,17 +21,20 @@ a{
 	color: #000;
 	text-decoration: none;
 }
+.border{
+	border: 2px solid #ddd;
+}
 .border-bottom{
-	border-bottom: 2px solid #eee;
+	border-bottom: 2px solid #ddd;
 }
 .border-left{
-	border-left: 2px solid #eee;
+	border-left: 2px solid #ddd;
 }
 .border-right{
-	border-right: 2px solid #eee;
+	border-right: 2px solid #ddd;
 }
 .border-top{
-	border-top: 2px solid #eee;
+	border-top: 2px solid #ddd;
 }
 .border-color-main{
 	border-color: #2EC075;
@@ -35,6 +44,24 @@ a{
 }
 .border-light{
 	border-width: 1px;
+}
+.margin{
+	margin: 10px;
+}
+.padding{
+	padding: 10px;
+}
+.padding-left{
+	padding-left: 10px;
+}
+.padding-right{
+	padding-right: 10px;
+}
+.padding-bottom{
+	padding-bottom: 10px;
+}
+.padding-top{
+	padding-top: 10px;
 }
 .row + .row{
     margin-top: 0px;
@@ -49,15 +76,53 @@ a{
 span{
 	line-height: 1.8;
 }
-
 .custom-item{
 	border-top: none;
 	border-left: none;
 	border-right: none;
 	border-bottom: 3px solid #eee;
 }
-
 select{
 	border: none;
 	background: none;
+}
+.href{
+	cursor: pointer;
+}
+
+/*自定义下拉插件*/
+.cs-select{}
+.cs-select-title{}
+.cs-select-title .cs-select-title-desc{
+	float: left;
+}
+.cs-select-title .cs-select-title-icon{
+	float: right;
+}
+.cs-select-center .cs-select-title-desc{
+	float: none;
+}
+.cs-select-center .cs-select-title-icon{
+	float: none;
+}
+.cs-select-items{
+	position: absolute;
+	width: 100%;
+    z-index: 9999;
+    text-align: center;
+    left: 0px;
+    right: 0px;
+    border-top: 1px solid #eee;
+}
+.cs-select-item{
+	background-color: #fff;
+	line-height: 2.5em;
+	border: 1px solid #eee;
+	border-top: none;
+}
+
+.overflow{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

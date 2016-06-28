@@ -3,9 +3,10 @@ angular.module('app.commonservices', [])
 /**
 公共组件
 */
-//公共-弹出消息
-.factory('UTIL_DIALOG', function($ionicPopup){
+//公共-消息
+.factory('UTIL_DIALOG', function($ionicPopup, $cordovaToast){
 	return {
+		//弹出消息
 		show: function(message, title){
 			$ionicPopup.alert({
 				title: title || "提示信息",
@@ -15,6 +16,10 @@ angular.module('app.commonservices', [])
 				}],
 				template: message
 			});
+		},
+		//显示消息
+		alert: function(message){
+			$cordovaToast.showShortTop(message)
 		}
 	};
 })
@@ -88,14 +93,14 @@ angular.module('app.commonservices', [])
 			}else if(data.success === "403"){//未登陆
 				$state.go("login");
 			}
-		}).error(function(er){
+		}).error(function(data, header, config, status){
 			if(lastTimeout){
 				clearTimeout(lastTimeout);
 				lastTimeout = null;
 			}
 			UTIL_LOADING.close();
-			UTIL_DIALOG.show("加载失败");
-			deferred.reject(er);
+			UTIL_DIALOG.show(status);
+			deferred.reject("加载失败");
 		});
 
 		return promise;
