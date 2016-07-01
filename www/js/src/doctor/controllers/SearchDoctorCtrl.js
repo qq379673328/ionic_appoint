@@ -55,11 +55,35 @@ app.controller('SearchDoctorCtrl', function($scope, $state, $stateParams, APPCON
 		offset = 0;
 		loadData(true);
 	};
+	//监控参数变化
+	$scope.$watch('searchParams', function(newObj, oldObj, scope){
+		$scope.refresh();
+	}, true);
 	//加载更多
 	$scope.loadMore = function(){	
 		if($scope.hasmore){
 			loadData(false);
 		}
+	};
+
+	//下拉控件
+	$scope.selectData = {
+		zone:[//地区
+			{desc: "全部", value: ""},
+			{desc: "廊坊市", value: ""}
+		],
+		dept:[//级别
+			{desc: "全部", value: ""}
+		],
+		titleCode: [//职称
+			{desc: "全部", value: ""},
+			{desc: "正高", value: "1"},
+			{desc: "副高", value: "2"},
+			{desc: "中级", value: "3"},
+			{desc: "师级/助理", value: "4"},
+			{desc: "士级", value: "5"},
+			{desc: "特聘", value: "6"}
+		]
 	};
 	
 })

@@ -1,14 +1,86 @@
-<ion-view title="我的" id="page6" class=" ">
-    <ion-content padding="true" class="has-header">
-    	<div class="row center" style="background-color: url(img/userbackground.jpg);">
+<ion-view title="个人中心">
+    <ion-content padding="false" class="has-header">
+
+	<div style="background: url(img/userbackground.jpg) center;">
+		<div class="row center" >
 	    	<div class="col center">
 	    		<img src="img/user_head.png" style="width: 20%;">
 	    	</div>	
 	    </div>
 	    
-	    <div class="row center">
-	    	<h3>{{user.name}}</h3>
+	    <div class="row center color-white">
+	    	<div class="col col-center">
+	    		{{user.name}}
+	    	</div>
 	    </div>
+	</div>
+
+	<div class="row row-center border-bottom border-weight">
+		<a class="col center border-right">未读消息 {{unreadMessageCount}}</a>
+		<a class="col center" ui-sref="patientList">我的就诊人 {{myPatientCount}}</a>
+	</div>
+    
+	<a class="row row-center border-bottom">
+        <div class="col col-10">
+            <img src="img/user_02.png" style="width: 100%">
+        </div>
+        <div class="col col-80">
+            健康档案
+        </div>
+        <div class="col col-10">
+            <img src="img/arrow_right_disable.png" style="height: 50%">
+        </div>
+    </a>
+    <a class="row row-center border-bottom">
+        <div class="col col-10">
+            <img src="img/user_01.png" style="width: 100%">
+        </div>
+        <div class="col col-80">
+            我的预约
+        </div>
+        <div class="col col-10">
+            <img src="img/arrow_right_disable.png" style="height: 50%">
+        </div>
+    </a>
+    <a class="row row-center border-bottom">
+        <div class="col col-10">
+            <img src="img/user_03.png" style="width: 100%">
+        </div>
+        <div class="col col-80">
+            我的就医卡
+        </div>
+        <div class="col col-10">
+            <img src="img/arrow_right_disable.png" style="height: 50%">
+        </div>
+    </a>
+
+    <a class="row row-center border-top border-bottom">
+        <div class="col col-90">
+            功能介绍
+        </div>
+        <div class="col col-10">
+            <img src="img/arrow_right_disable.png" style="height: 50%">
+        </div>
+    </a>
+    <a class="row row-center border-bottom">
+        <div class="col col-90">
+            意见反馈
+        </div>
+        <div class="col col-10">
+            <img src="img/arrow_right_disable.png" style="height: 50%">
+        </div>
+    </a>
+    <a class="row row-center border-bottom">
+        <div class="col col-90">
+            关于我们
+        </div>
+        <div class="col col-10">
+            <img src="img/arrow_right_disable.png" style="height: 50%">
+        </div>
+    </a>
+
+	
+		
 
     </ion-content>
 </ion-view>

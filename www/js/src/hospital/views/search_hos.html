@@ -7,52 +7,42 @@
 
         <form class="list padding-horizontal">
             <label class="item item-input">
-                <input type="search" placeholder="医院" ng-change="refresh();" ng-model="searchParams.hosName">
+                <input type="search" placeholder="医院" ng-model="searchParams.hosName">
                 <i class="icon ion-search placeholder-icon padding"></i>
             </label>
         </form>
 
         <div class="row" style="background-color: rgba(41, 173, 104, 0.286274509803922)">
+
             <div class="col">
-                <div class="list">
-                    <div class="item item-input item-select">
-                        <div class="input-label">
-                            廊坊市
-                        </div>
-                    </div>
-                </div>
+                <ag-select
+                    class="cs-select-center"
+                    data="selectData.zone"
+                    title="地区"
+                    >
+                </ag-select>
             </div>
+
             <div class="col">
-                <div class="list">
-                    <div class="item item-input item-select">
-                        <div class="input-label">
-                            等级
-                        </div>
-                        <select ng-model="searchParams.hosLevel" ng-change="refresh();">
-                            <option value="">全部</option>
-                            <option value="3">三级</option>
-                            <option value="2">二级</option>
-                            <option value="1">一级</option>
-                        </select>
-                    </div>
-                </div>
+                <ag-select
+                    class="cs-select-center"
+                    data="selectData.level"
+                    value="searchParams.hosLevel"
+                    title="等级"
+                    >
+                </ag-select>
             </div>
+
             <div class="col">
-                <div class="list">
-                    <div class="item item-input item-select">
-                        <div class="input-label">
-                            类型
-                        </div>
-                        <select ng-model="searchParams.hosType" ng-change="refresh();">
-                            <option value="">全部</option>
-                            <option value="A100">综合医院</option>
-                            <option value="A2">中医医院</option>
-                            <option value="A300">中西医结合医院</option>
-                            <option value="A5">专科医院</option>
-                        </select>
-                    </div>
-                </div>
+                <ag-select
+                    class="cs-select-center"
+                    data="selectData.type"
+                    value="searchParams.hosType"
+                    title="类型"
+                    >
+                </ag-select>
             </div>
+
         </div>
 
         <ion-list>

@@ -36,6 +36,54 @@ app.service('UserService', function(UTIL_HTTP, UTIL_USER, $state, $stateParams){
 				UTIL_USER.logout();
 				$state.go("login");
 			});
+		},
+		//个人中心概要信息
+		getSummary: function(){
+			return UTIL_HTTP.get({
+				url: "/userinfo/summary"
+			});
+		},
+		//编辑用户信息
+		editUser: function(params){
+			return UTIL_HTTP.post({
+				url: "/userinfo/edit",
+				data: params
+			});
+		},
+		//修改密码
+		editPassword: function(oldPwd, newPwd, 	dupNewPwd){
+			return UTIL_HTTP.post({
+				url: "/userinfo/editpwd",
+				data: {
+					oldPwd: oldPwd,
+					newPwd: newPwd,
+					dupNewPwd: dupNewPwd
+				}
+			});
+		},
+		//编辑头像-base64
+		editAvatarByBase64: function(avatar){
+			return UTIL_HTTP.post({
+				url: "/userinfo/editAvatar",
+				data: {
+					avatar: avatar
+				}
+			});
+		},
+		//反馈意见
+		addOpinion: function(info){
+			return UTIL_HTTP.post({
+				url: "/useropinion/add",
+				data: {
+					info: info
+				}
+			});
+		},
+		//获取所有未读消息
+		getUnreadMessage: function(){
+			return UTIL_HTTP.get({
+				url: "/usermessage/unread"
+			});
 		}
 	};
 

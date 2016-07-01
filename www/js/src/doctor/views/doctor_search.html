@@ -6,57 +6,46 @@
 
         <form class="list padding-horizontal">
             <label class="item item-input">
-                <input type="search" placeholder="医生" ng-change="refresh();" ng-model="searchParams.keyWord">
+                <input type="search" placeholder="医生" ng-model="searchParams.keyWord">
                 <i class="icon ion-search placeholder-icon padding"></i>
             </label>
         </form>
 
         <div class="row" style="background-color: rgba(41, 173, 104, 0.286274509803922)">
+
             <div class="col">
-                <div class="list">
-                    <div class="item item-input item-select">
-                        <div class="input-label">
-                            廊坊市
-                        </div>
-                    </div>
-                </div>
+                <ag-select
+                    class="cs-select-center"
+                    data="selectData.zone"
+                    title="地区"
+                    >
+                </ag-select>
             </div>
+
             <div class="col">
-                <div class="list">
-                    <div class="item item-input item-select">
-                        <div class="input-label">
-                            科室
-                        </div>
-                        <select>
-                            <option value="">全部</option>
-                            
-                        </select>
-                    </div>
-                </div>
+                <ag-select
+                    class="cs-select-center"
+                    data="selectData.dept"
+                    title="科室"
+                    >
+                </ag-select>
             </div>
+
             <div class="col">
-                <div class="list">
-                    <div class="item item-input item-select">
-                        <div class="input-label">
-                            职称
-                        </div>
-                        <select ng-model="searchParams.titleCode" ng-change="refresh();">
-                            <option value=""></option>
-                            <option value="1">正高</option>
-                            <option value="2">副高</option>
-                            <option value="3">中级</option>
-                            <option value="4">师级/助理</option>
-                            <option value="5">士级</option>
-                            <option value="6">特聘</option>
-                        </select>
-                    </div>
-                </div>
+                <ag-select
+                    class="cs-select-center"
+                    data="selectData.titleCode"
+                    value="searchParams.titleCode"
+                    title="职称"
+                    >
+                </ag-select>
             </div>
+
         </div>
 
         <ion-list>
             <ion-item class="item-thumbnail-left" ng-repeat="item in items" ng-click="go(item)" >
-                <img src="img/doctor_head.png" style="width: 20%;">
+                <img src="img/doctor_head.png">
                 <h3><b>{{item.name}}</b> {{item.profeTitleDn}}</h3>
                 <br/>
                 <span>{{item.hosOrgName}} {{item.deptName }}</span>

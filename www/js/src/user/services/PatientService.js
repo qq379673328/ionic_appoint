@@ -22,14 +22,14 @@ app.service('PatientService', function(UTIL_HTTP){
 		},
 		//添加就诊人
 		addPatient: function(patient){
-			return UTIL_HTTP.get({
+			return UTIL_HTTP.post({
 				url: "/patient/add",
 				data: patient
 			});
 		},
 		//修改就诊人
 		editPatient: function(patient){
-			return UTIL_HTTP.get({
+			return UTIL_HTTP.post({
 				url: "/patient/edit",
 				data: patient
 			});
