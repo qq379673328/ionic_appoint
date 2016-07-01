@@ -78,7 +78,7 @@ angular.module('app.routes', [])
   //预约挂号-快速
   .state('appointQuick', {
     url: '/appointQuick',
-    params: {zone: null},
+    params: {zone: null,hos:null},
     templateUrl: 'js/src/appoint/views/appoint_quick.html',
     controller: "AppointQuickCtrl"
   })
@@ -259,12 +259,7 @@ angular.module('app.routes', [])
     controller: 'SearchHosAndDocCtrl'
   })	
 	
-		//找医院页
-	.state('searchHos',{
-		url:'/searchHos',
-		templateUrl:'js/src/hospital/views/search_hos.html',
-		controller:'SearchHosCtrl'
-	})
+
 	
 	
 		//找医生页
@@ -288,8 +283,9 @@ angular.module('app.routes', [])
 		controller:'SearchServicePriceCtrl'
 	})
 
-	//预约挂号页
+	//预约挂号确认页
 	.state('appointMent',{
+		params:{aj:null},
 		url:'/appointMent',
 		templateUrl:'js/src/appoint/views/appoint_ment.html',
 		controller:'AppointMentCtrl'
@@ -304,6 +300,7 @@ angular.module('app.routes', [])
 	
 	//预约选科室
 	.state('appointDepart',{
+		params:{hos:null,targetState:null},
 		url:'/appointDepart',
 		templateUrl:'js/src/appoint/views/appoint_depart.html',
 		controller:'AppointDepartCtrl'
@@ -311,13 +308,14 @@ angular.module('app.routes', [])
 	
 	//预约选日期及时间段
 	.state('appointDate',{
+		params:{dept:null},
 		url:'/appointDate',
 		templateUrl:'js/src/appoint/views/appoint_date.html',
 		controller:'AppointDateCtrl'
 	})
 	
-	//预约确认信息(详情)页
-	.state('appointMentDatail',{
+	//预约详情页
+	.state('appointMentDatail',{	
 		url:'/appointMentDatail',
 		templateUrl:'js/src/appoint/views/appointment_datail.html',
 		controller:'AppointMentDatailCtrl'

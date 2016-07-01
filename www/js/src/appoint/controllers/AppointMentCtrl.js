@@ -1,3 +1,3 @@
-app.controller('SearchHosCtrl',function(){
+app.controller('AppointMentCtrl',function($scope, $stateParams, $state,ArrayJob){
 	
 });
