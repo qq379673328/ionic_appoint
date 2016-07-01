@@ -24,7 +24,7 @@ app.service('UserService', function(UTIL_HTTP, UTIL_USER, $state, $stateParams){
 
 					//登录成功返回登录之前页面
 					var from = $stateParams["from"];
-					$state.go(from && from != "login" ? from : "tabs.index");
+					$state.go(from && from != "login" ? from : "app.index");
 				}
 			});
 		},

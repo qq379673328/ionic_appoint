@@ -1,37 +1,72 @@
 //就诊记录主页面
-app.controller('MainMedicalrecordCtrl', function($scope, $stateParams, MedicalRecordService, PatientService) {
+app.controller('MainMedicalrecordCtrl', function($scope, $stateParams, MedicalRecordService, PatientService, APPCONFIG) {
+
+	//是否有更多
+	$scope.hasmore = true;
+	//是否在加载数据
+    var isRun = false;
+    //分页起始条数
+    var offset = 0;
 
 	$scope.patientId = $stateParams.patientId;
-	$scope.patient = null;
+	$scope.patient = $stateParams.patient;
 
 	//刷新页面
 	$scope.doRefresh = function(cb){
 		if($scope.patient){
-			$scope.loadMedicalRecored()
+			$scope.loadMedicalRecored(true)
 		}else{
 			if($scope.patientId){
 				//获取就诊人
 				PatientService.getPatientById(patientId).then(function(patient){
 					$scope.patient = patient;
-					$scope.loadMedicalRecored()
+					$scope.loadMedicalRecored(true)
 				});
 			}else{
 				//获取当前就诊人
 				PatientService.getCurrentPatient().then(function(patient){
 					$scope.patient = patient;
-					$scope.loadMedicalRecored()
+					$scope.loadMedicalRecored(true)
 				});
 			}
 		}
 	};
 
 	//加载就诊数据
-	$scope.loadMedicalRecored = function(){
+	$scope.loadMedicalRecored = function(isReload){
 		if($scope.patient){
-			MedicalRecordService.getOutpatientRecords($scope.patient.idNo).then(function(data){
-				$scope.records = data
-				$scope.$broadcast('scroll.refreshComplete');
-			});
+
+			if(!isRun){
+				isRun = true;
+				MedicalRecordService
+					.getOutpatientRecords($scope.patient.idNo, {
+						offset: offset
+					})
+					.then(function(data){
+
+						if(!data || data.length < APPCONFIG.PAGE_SIZE){
+							$scope.hasmore = false;
+						}
+						offset += APPCONFIG.PAGE_SIZE;
+						if(isReload){//刷新
+							$scope.records = data;
+						}else{//加载更多
+							$scope.records = $scope.records.concat(data);
+						}
+						isRun = false;
+						$scope.$broadcast('scroll.refreshComplete');
+						$scope.$broadcast('scroll.infiniteScrollComplete');
+
+					});
+			}
+			
+		}
+	};
+
+	//加载更多
+	$scope.loadMore = function(){	
+		if($scope.hasmore){
+			$scope.loadMedicalRecored(false);
 		}
 	};
 

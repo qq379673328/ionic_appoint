@@ -2,11 +2,16 @@
 
     <ion-content padding="false" class="has-header">
 
-        <a class="row border margin" ng-repeat="patient in items" ui-sref="patientEdit({patient: patient})" style="width: auto;">
+        <ion-refresher
+            pulling-text="下拉刷新..."
+            on-refresh="refresh()">
+        </ion-refresher>
+
+        <a class="row border margin href border-light" ng-repeat="patient in items" ng-click="go(patient)" style="width: auto;">
             <div class="col-20 col-center center">
                 <b>{{patient.name}}</b>
             </div>
-            <div class="col-60 col-center border-left padding-left">
+            <div class="col-60 col-center border-left padding-left border-light">
                 <span>
                 {{patient.gender}} {{patient.birth | date:'yyyy-MM-dd'}}
                 <img src="img/girl.png" ng-if="patient.gender == '女'" height="20px">
@@ -21,7 +26,7 @@
                 </span>
             </div>
         </a>
-        <div class="row" ng-if="!hasmore">
+        <div class="row" ng-if="!hasmore" class="nomore">
             没有更多
         </div>
 

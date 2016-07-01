@@ -31,11 +31,11 @@ app.controller('ServItemPriceSearchCtrl', function($scope, $stateParams, APPCONF
 			if(!data.hosServices  || data.hosServices .length < APPCONFIG.PAGE_SIZE){
 				$scope.hasmore = false;
 			}
+			offset += APPCONFIG.PAGE_SIZE;
 			if(isReload){//刷新
 				$scope.items = data.hosServices ;
 			}else{//加载更多
 				$scope.items = $scope.items.concat(data.hosServices );
-				offset += APPCONFIG.PAGE_SIZE;
 			}
 			$scope.$broadcast('scroll.infiniteScrollComplete');
 		});

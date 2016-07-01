@@ -38,11 +38,11 @@ app.controller('SearchHosCtrl', function($scope, $state, $stateParams, APPCONFIG
 				if(!data.hospitalSimples || data.hospitalSimples.length < APPCONFIG.PAGE_SIZE){
 					$scope.hasmore = false;
 				}
+				offset += APPCONFIG.PAGE_SIZE;
 				if(isReload){//刷新
 					$scope.items = data.hospitalSimples;
 				}else{//加载更多
 					$scope.items = $scope.items.concat(data.hospitalSimples);
-					offset += APPCONFIG.PAGE_SIZE;
 				}
 				isRun = false;
 				$scope.$broadcast('scroll.infiniteScrollComplete');

@@ -37,11 +37,11 @@ app.controller('SearchDoctorCtrl', function($scope, $state, $stateParams, APPCON
 				if(!data.doctors  || data.doctors.length < APPCONFIG.PAGE_SIZE){
 					$scope.hasmore = false;
 				}
+				offset += APPCONFIG.PAGE_SIZE;
 				if(isReload){//刷新
 					$scope.items = data.doctors;
 				}else{//加载更多
 					$scope.items = $scope.items.concat(data.doctors);
-					offset += APPCONFIG.PAGE_SIZE;
 				}
 				isRun = false;
 				$scope.$broadcast('scroll.infiniteScrollComplete');
