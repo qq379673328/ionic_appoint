@@ -15,15 +15,20 @@
         </div>
 
         <div class="row row-center border-bottom">
-            <div class="col col-10">
-                <img src="img/registered_home.png" style="width: 100%">
-            </div>
-            <div class="col col-80">
-                {{appoint.orgName}}
-            </div>
-            <div class="col col-10">
-                <i class="icon ion-chevron-right"></i>
-            </div>
+        	
+        		<div class="col col-10">
+                	<img src="img/registered_home.png" style="width: 100%">
+           	    </div>
+            	<div class="col col-80">
+                	{{appoint.orgName}}
+            	</div>
+            	<div class="col col-10">
+            		<a ui-sref="hosSearch({targetState: 'appointDepart'})">
+                		<i class="icon ion-chevron-right"></i>
+                	</a>
+            	</div>
+        	
+            
         </div>
 
         <div class="row row-center border-bottom">

@@ -1,9 +1,35 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
-</html>
+<ion-view title="科室">
+
+
+    <ion-content padding="false" class="has-header">
+        
+        <div class="row">{{hos.hosOrgName}}</div>
+		
+     	<div class="row">
+     		
+     		<div class="col">  
+     			 <ion-list>
+	     			<ion-item ng-repeat="dep in oneList" ng-click="showChildList(dep)" >
+	     				<span>{{dep.deptName}}</span>
+	     			</ion-item>
+	     			 <ion-item ng-if="!hasmore" >
+               			 没有更多
+           			 </ion-item>	     			
+     			 </ion-list>
+     		</div>
+     		
+     		<div class="col">     			
+     			 <ion-list>
+	     			<ion-item ng-repeat="cdep in chidList" ng-click="go(cdep)" >
+	     				<span>{{cdep.deptName}}</span>
+	     			</ion-item>
+	     			 <ion-item ng-if="!hasmore" >
+               			 没有更多
+           			 </ion-item>	     			
+     			 </ion-list>
+     		</div>
+     	</div>      
+
+
+    </ion-content>
+</ion-view>
