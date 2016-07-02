@@ -27,13 +27,14 @@ app.controller('PatientListCtrl', function($scope, $state, $stateParams, APPCONF
 			if(!data || data.length < APPCONFIG.PAGE_SIZE){
 				$scope.hasmore = false;
 			}
+			offset += APPCONFIG.PAGE_SIZE;
 			if(isReload){//刷新
 				$scope.items = data;
 			}else{//加载更多
 				$scope.items = $scope.items.concat(data);
-				offset += APPCONFIG.PAGE_SIZE;
 			}
 			isRun = false;
+			$scope.$broadcast('scroll.refreshComplete');
 			$scope.$broadcast('scroll.infiniteScrollComplete');
 		});
 	}
@@ -43,6 +44,13 @@ app.controller('PatientListCtrl', function($scope, $state, $stateParams, APPCONF
 		if($scope.hasmore){
 			loadData(false);
 		}
+	};
+
+	//查询
+	$scope.refresh = function(current){
+		$scope.hasmore = true;
+		offset = 0;
+		loadData(true);
 	};
 	
 });

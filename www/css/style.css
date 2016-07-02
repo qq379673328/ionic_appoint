@@ -17,6 +17,15 @@ map {
 .center {
 	text-align: center;
 }
+.align-left {
+	text-align: left;
+}
+.align-center {
+	text-align: center;
+}
+.align-right {
+	text-align: right;
+}
 a{
 	color: #000;
 	text-decoration: none;
@@ -38,6 +47,9 @@ a{
 }
 .border-color-main{
 	border-color: #2EC075;
+}
+.border-color-white{
+	border-color: white;
 }
 .border-weight{
 	border-width: 8px;
@@ -72,6 +84,12 @@ a{
 }
 .color-white{
 	color: #fff;
+}
+.color-blue{
+	color: #00699C;
+}
+.color-light{
+	color: #999999;
 }
 span{
 	line-height: 1.8;
@@ -125,4 +143,81 @@ select{
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+/*自定义背景色*/
+.bg-spe{
+	background-color: rgba(41, 173, 104, 0.286274509803922);
+}
+/*段落*/
+.paragraph{
+	text-indent: 2em;
+	line-height: 2em;
+}
+
+/*自定义table*/
+table{
+	width: 100%;
+	text-align: center;
+}
+/*自定义textarea*/
+.textarea{
+	width: 100%;
+	line-height: 1.5em;
+}
+/*没有更多*/
+.nomore{
+	text-align: center;
+}
+/*固定行文字*/
+p.text1 {
+/*单行*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	white-space: nowrap;
+}
+p.text2 {
+/*多行*/
+	word-break: break-all;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	white-space: normal;
+}
+/*资讯模块样式>>>*/
+.news{}
+.news .news-title{
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    padding-left: 105px;
+	padding-right: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.news .news-date{
+	width: 100px;
+    right: 0px;
+    position: absolute;
+    font-size: 0.8em;
+}
+.news .news-summary{
+	position: absolute;
+    top: 40px;
+    left: 0px;
+    padding-left: 105px;
+}
+.news .news-title-width{
+	padding-right: 0px;
+}
+.news .news-title-leftwidth{
+	padding-left: 10px;
+}
+/*资讯模块样式<<<*/
+.i{
+	font-style: italic;	
 }

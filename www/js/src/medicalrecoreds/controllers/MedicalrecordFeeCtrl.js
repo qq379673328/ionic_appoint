@@ -1,5 +1,5 @@
- //医院-详情
-app.controller('DrugPriceSearchCtrl', function($scope, $stateParams, APPCONFIG, HospitalService) {
+//门诊-费用明细
+app.controller('MedicalrecordFeeCtrl', function($scope, $state, $stateParams, APPCONFIG, MedicalRecordService) {
 	
 	//是否有更多
 	$scope.hasmore = true;
@@ -8,41 +8,34 @@ app.controller('DrugPriceSearchCtrl', function($scope, $stateParams, APPCONFIG, 
     //分页起始条数
     var offset = 0;
 
+    var idNo = $stateParams.idNo;
+
 	$scope.searchParams = {};
 	$scope.items = [];
 
-	//加载医院
-	if($stateParams.hos){
-		$scope.hos = $stateParams.hos;
-	}else{
-		HospitalService.getDefaultHospital().then(function(data){
-      		$scope.hos = data;
-    	});
-	}
-
 	//加载数据
 	function loadData(isReload, extParams){
-		//if(!isRun){
-			//isRun = true;
-			HospitalService.getHosDrugPrices({
-				hosId: $scope.hos.id,
-				medName: $scope.searchParams.medName,
+		if(!idNo) return;
+		if(!isRun){
+			isRun = true;
+			MedicalRecordService.getOutpatientRecordsFee(idNo, {
 				offset: offset
 			})
 			.then(function(data){
-				if(!data.dugPriceList || data.dugPriceList.length < APPCONFIG.PAGE_SIZE){
+				if(!data || data.length < APPCONFIG.PAGE_SIZE){
 					$scope.hasmore = false;
 				}
 				offset += APPCONFIG.PAGE_SIZE;
 				if(isReload){//刷新
-					$scope.items = data.dugPriceList;
+					$scope.items = data;
 				}else{//加载更多
-					$scope.items = $scope.items.concat(data.dugPriceList);
+					$scope.items = $scope.items.concat(data);
 				}
-				//isRun = false;
+				isRun = false;
+				$scope.$broadcast('scroll.refreshComplete');
 				$scope.$broadcast('scroll.infiniteScrollComplete');
 			});
-		//}
+		}
 	}
 
 	//查询
@@ -51,11 +44,15 @@ app.controller('DrugPriceSearchCtrl', function($scope, $stateParams, APPCONFIG, 
 		offset = 0;
 		loadData(true);
 	};
+
 	//加载更多
 	$scope.loadMore = function(){	
 		if($scope.hasmore){
 			loadData(false);
 		}
 	};
-	
-})
+
+	//默认加载
+	loadData(true);
+
+});

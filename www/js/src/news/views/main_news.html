@@ -1,22 +1,55 @@
 <ion-view title="资讯" id="page5" class=" ">
     <ion-content padding="false" class=" manual-remove-top-padding has-header">
-        <div id="page5-button-bar1" class=" button-bar ">
-            <button id="page5-button1" style="border-radius:0px 0px 0px 0px;" class=" button button-balanced  button-block ">推荐</button>
-            <button id="page5-button10" style="border-radius:0px 0px 0px 0px;" class=" button button-balanced  button-block ">饮食</button>
-            <button id="page5-button11" style="border-radius:0px 0px 0px 0px;" class=" button button-balanced  button-block ">心理</button>
-            <button id="page5-button12" style="border-radius:0px 0px 0px 0px;" class=" button button-balanced  button-block ">妇婴</button>
+
+        <ion-refresher
+            pulling-text="下拉刷新..."
+            on-refresh="refresh()">
+        </ion-refresher>
+        
+        <div class="row bg-spe">
+            <a ng-click="refresh('Default');" 
+                class="col center href"
+                ng-class="{'color-main': current == 'Default'}"
+                >推荐</a>
+            <a ng-click="refresh('Food');" 
+                class="col center href"
+                ng-class="{'color-main': current == 'Food'}"
+                >饮食</a>
+            <a ng-click="refresh('Psy');"
+                class="col center href"
+                ng-class="{'color-main': current == 'Psy'}"
+                >心理</a>
+            <a ng-click="refresh('Ladybaby');"
+                class="col center href"
+                ng-class="{'color-main': current == 'Ladybaby'}"
+                >妇婴</a>
         </div>
-        <ion-list id="page5-list1" class=" ">
-            <ion-item class="item-thumbnail-left  ">
-                <img src="img/demo_fuying.jpg">
-                <h2>天热减肥不想动 饮食帮你瘦身</h2>
-                <p>社交频繁的今天水电费克里斯多夫阿卡丽水电费克里斯多夫可拉伸的李开复卡洛斯的反馈了爱上的李开复克里斯丁客服解释道啊</p>
-            </ion-item>
-            <ion-item class="item-thumbnail-left  ">
-                <img src="img/demo_fuying.jpg">
-                <h2>天热减肥不想动 饮食帮你瘦身</h2>
-                <p>社交频繁的今天</p>
+
+        <ion-list>
+            <ion-item ng-repeat="article in articles" class="item-thumbnail-left news" ui-sref="app.newsDetail({newsId: article.articleId})">
+                <img ng-if="article.articlePic" ng-src="{{imgUrlBase}}/{{article.articlePic}}">
+                <div>
+                    <span class="news-title" 
+                        ng-class="{'news-title-width': current == 'Default', 'news-title-leftwidth': !article.articlePic}">
+                        {{article.articleTitle}}</span>
+                    <span class="news-date i color-light"
+                        ng-if="current != 'Default'">
+                        {{article.releaseDate |date:'yyyy-MM-dd'}}</span>
+                </div>
+                <p class="text2 news-summary padding-right" ng-class="{'news-title-leftwidth': !article.articlePic}">{{article.articleSummary}}</p>
             </ion-item>
         </ion-list>
+
+        <ion-item ng-if="!hasmore" class="nomore">
+            没有更多
+        </ion-item>
+
+        <ion-infinite-scroll
+            ng-if="hasmore"
+            on-infinite="loadMore()"
+            distance="5%"
+            >
+        </ion-infinite-scroll>
+
     </ion-content>
 </ion-view>

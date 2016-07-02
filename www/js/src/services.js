@@ -99,7 +99,7 @@ angular.module('app.commonservices', [])
 				lastTimeout = null;
 			}
 			UTIL_LOADING.close();
-			UTIL_DIALOG.show(status);
+			UTIL_DIALOG.show("加载失败");
 			deferred.reject("加载失败");
 		});
 
@@ -198,6 +198,22 @@ angular.module('app.commonservices', [])
 			};
 		}
 	};
+})
+
+//用于页面历史的记录
+.factory("fromStateServ", function() {
+    return {
+        data: {},
+        setState: function(module, fromState, fromParams) {
+            this.data[module] = {
+                "fromState": fromState,
+                "fromParams": fromParams
+            };
+        },
+        getState: function(module) {
+            return this.data[module];
+        }
+    };
 })
 
 

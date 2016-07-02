@@ -11,13 +11,17 @@
 	    <div class="row center color-white">
 	    	<div class="col col-center">
 	    		{{user.name}}
+                <a ui-sref="login" ng-if="!isLogin" class="color-white">点击登录</a>
 	    	</div>
 	    </div>
 	</div>
 
 	<div class="row row-center border-bottom border-weight">
 		<a class="col center border-right">未读消息 {{unreadMessageCount}}</a>
-		<a class="col center" ui-sref="patientList">我的就诊人 {{myPatientCount}}</a>
+		<a class="col center" ui-sref="app.patientList">
+            我的就诊人 
+            <b>{{myPatientCount}}</b>
+        </a>
 	</div>
     
 	<a class="row row-center border-bottom">
@@ -54,7 +58,7 @@
         </div>
     </a>
 
-    <a class="row row-center border-top border-bottom">
+    <a class="row row-center border-top border-bottom" ui-sref="app.introduction">
         <div class="col col-90">
             功能介绍
         </div>
@@ -62,7 +66,7 @@
             <img src="img/arrow_right_disable.png" style="height: 50%">
         </div>
     </a>
-    <a class="row row-center border-bottom">
+    <a class="row row-center border-bottom" ui-sref="app.opinion">
         <div class="col col-90">
             意见反馈
         </div>
@@ -70,7 +74,7 @@
             <img src="img/arrow_right_disable.png" style="height: 50%">
         </div>
     </a>
-    <a class="row row-center border-bottom">
+    <a class="row row-center border-bottom" ui-sref="app.aboutUs">
         <div class="col col-90">
             关于我们
         </div>
@@ -78,9 +82,6 @@
             <img src="img/arrow_right_disable.png" style="height: 50%">
         </div>
     </a>
-
-	
-		
 
     </ion-content>
 </ion-view>

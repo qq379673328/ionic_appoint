@@ -66,14 +66,25 @@
             <a ui-sref="servItemPriceSearch" class="col button">服务项目价格查询</a>
         </div>
 
-    	<div class="row">
-            <div class="col-80">健康资讯</div>
-    		<a class="col-20" href="">&gt;&gt;更多</a>
+    	<div class="row row-center">
+        <div class="col-80"><h4>健康资讯</h4></div>
+    		<a class="col-20" ui-sref="app.news">&gt;&gt;更多</a>
     	</div>
 
-        <div class="row">
-            <iframe src="http://192.168.1.252:9401/api-mobile/consult/mobile/index.html" width=100% height=380 frameborder=0 scrolling="no"></iframe>
-        </div>
+        <ion-refresher
+            pulling-text="下拉刷新..."
+            on-refresh="refresh()">
+        </ion-refresher>
+
+        <ion-list>
+            <ion-item ng-repeat="article in articles" class="item-thumbnail-left news" ui-sref="app.newsDetail({newsId: article.articleId})">
+                <img ng-if="article.articlePic" ng-src="{{imgUrlBase}}/{{article.articlePic}}">
+                <div>
+                    <span class="news-title news-title-width" ng-class="{'news-title-leftwidth': !article.articlePic}">{{article.articleTitle}}</span>
+                </div>
+                <p class="text2 news-summary padding-right" ng-class="{'news-title-leftwidth': !article.articlePic}">{{article.articleSummary}}</p>
+            </ion-item>
+        </ion-list>
 
     </ion-content>
 </ion-view>

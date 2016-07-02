@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.ionictestworkspace839540" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>ionic_test</name>
+  <name>appoint_ionic</name>
   <description>
         百姓医院.
-    </description>
-  <author email="you@example.com" href="http://example.com.com/">
+  </description>
+  <author email="you@example.com" href="http://sinosoft.com.com/">
       Your Name Here
     </author>
   <content src="index.html"/>
