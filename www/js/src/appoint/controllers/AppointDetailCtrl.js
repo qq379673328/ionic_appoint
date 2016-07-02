@@ -3,7 +3,7 @@ app.controller('AppointDetailCtrl', function($scope, $stateParams, AppointServic
 
 	//获取默认号源
 	AppointService
-		.getDetail($stateParams.arrayJobId)
+		.getDetail($stateParams.appointId)
 		.then(function(data){
 			$scope.appoint = data.appoint;
 	});

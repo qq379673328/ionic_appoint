@@ -17,7 +17,7 @@ angular.module('app.directives', [])
         link: function(scope, el, attrs, controller) {
             scope.currentDesc = scope.title;
 
-            debugger;
+           
             if(scope.defaultDesc){
 
             	scope.currentDesc = scope.defaultDesc;

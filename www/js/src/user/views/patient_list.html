@@ -2,7 +2,7 @@
 
     <ion-content padding="false" class="has-header">
 
-        <a class="row border margin" ng-repeat="patient in items" ui-sref="patientEdit({patient: patient})" style="width: auto;">
+        <a class="row border margin" ng-repeat="patient in items" ng-click="go(patient)" style="width: auto;">
             <div class="col-20 col-center center">
                 <b>{{patient.name}}</b>
             </div>
