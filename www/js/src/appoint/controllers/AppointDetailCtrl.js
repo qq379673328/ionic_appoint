@@ -5,7 +5,7 @@ app.controller('AppointDetailCtrl', function($scope, $stateParams, AppointServic
 	AppointService
 		.getDetail($stateParams.appointId)
 		.then(function(data){
-			$scope.appoint = data.appoint;
+			$scope.appoint = data;
 	});
 
 });

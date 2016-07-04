@@ -12,6 +12,6 @@ app.controller('AppointSuccessCtrl',function($scope, $stateParams, $state,Appoin
 	$scope.cancelAppoint=function(appoint){
 		AppointService.back(appoint.id,appoint.state).then(function(data){
 			console.log(data);
-		})
+		});
 	}
 });

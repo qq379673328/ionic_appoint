@@ -336,6 +336,13 @@ angular.module('app.routes', [])
 		templateUrl:'js/src/appoint/views/appoint_success_datail.html',
 		controller:'AppointSuccessDatailCtrl'
 	})
+	
+	//预约列表
+	.state('appointList',{
+		url:'/appointList',
+		templateUrl:'js/src/appoint/views/appoint_list.html',
+		controller:'AppointListCtrl'
+	})
 
   .state("other", {
     url: "/other",
