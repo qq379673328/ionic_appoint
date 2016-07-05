@@ -1,3 +1,3 @@
-app.controller('SearchHosCtrl',function(){
-	
+app.controller('AppointMentDatailCtrl',function($scope, $stateParams, $state,AppointService){
+	$scope.appoint = $stateParams.appoint;
 });

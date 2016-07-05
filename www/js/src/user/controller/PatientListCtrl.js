@@ -12,11 +12,10 @@ app.controller('PatientListCtrl', function($scope, $state, $stateParams, APPCONF
 	$scope.items = [];
 
 	var targetState = $stateParams.targetState;
-
 	//选择就诊人跳转页面
 	if(targetState){
 		$scope.go = function(patient){
-			$state.go(targetState, {patient: patient}, {reload: true});
+			$state.go(targetState, {patient: patient,otherParams:$stateParams.otherParams}, {reload: true});
 		};
 	}
 

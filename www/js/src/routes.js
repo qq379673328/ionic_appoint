@@ -85,7 +85,7 @@ angular.module('app.routes', [])
   //预约详情页
   .state('appointDetail', {
     url: '/appointDetail',
-    params: {arrayJobId: null},
+    params: {appointId: null},
     templateUrl: 'js/src/appoint/views/appoint_detail.html',
     controller: "AppointDetailCtrl"
   })
@@ -179,9 +179,10 @@ angular.module('app.routes', [])
     }
   })
   //就诊人-列表
+
   .state('app.patientList', {
     url: '/patient-list',
-    params: {targetState: "app.patientEdit"},
+    params: {targetState: "app.patientEdit",otherParams:null},
     cache: false,
     views: {
       'tabMy': {
@@ -301,7 +302,7 @@ angular.module('app.routes', [])
 
 	//预约挂号确认页
 	.state('appointMent',{
-		params:{aj:null},
+		params:{aj:null,patient:null,otherParams:null},
 		url:'/appointMent',
 		templateUrl:'js/src/appoint/views/appoint_ment.html',
 		controller:'AppointMentCtrl'
@@ -339,6 +340,7 @@ angular.module('app.routes', [])
 	
 	//预约成功页
 	.state('appointSuccess',{
+		params:{appointId:null},
 		url:'/appointSuccess',
 		templateUrl:'js/src/appoint/views/appoint_success.html',
 		controller:'AppointSuccessCtrl'
@@ -349,6 +351,13 @@ angular.module('app.routes', [])
 		url:'/appointSuccessDatail',
 		templateUrl:'js/src/appoint/views/appoint_success_datail.html',
 		controller:'AppointSuccessDatailCtrl'
+	})
+	
+	//预约列表
+	.state('appointList',{
+		url:'/appointList',
+		templateUrl:'js/src/appoint/views/appoint_list.html',
+		controller:'AppointListCtrl'
 	})
 
   .state("other", {

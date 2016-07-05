@@ -46,7 +46,7 @@ app.controller('AppointDateCtrl',function($scope, $stateParams, $state,ArrayJob)
 		if(month<10){
 			return year+'-0'+month+'-'+day;
 		}else{
-			return year+'-0'+month+'-'+day;
+			return year+'-'+month+'-'+day;
 		}
 	}
 	//排班号源	
