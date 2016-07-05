@@ -98,7 +98,8 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
 
   //需要登录的页面
   var filterStates = [
-  "tabs.medicalrecored"
+  "tabs.medicalrecored",
+  "app.messagelist"
   ];
   //监听页面切换-判断页面是否需要登录
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
@@ -129,5 +130,7 @@ app.constant('APPCONFIG', {
   SERVER_URL_PRE: "http://localhost:8100/api",//浏览器调试
   //SERVER_URL_PRE: "http://192.168.1.252:9401/api-mobile/api",//打包发布
   //分页加载每页参数
-  PAGE_SIZE: 10
+  PAGE_SIZE: 10,
+  //本地数据库
+  DB_FILE: "appoint.db"
 });

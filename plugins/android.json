@@ -71,6 +71,9 @@
         },
         "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.ionicframework.ionictestworkspace839540"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.ionicframework.ionictestworkspace839540"
         }
     },
     "dependent_plugins": {}

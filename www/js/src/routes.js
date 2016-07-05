@@ -247,10 +247,26 @@ angular.module('app.routes', [])
   })
 
   //消息列表页
-  .state('messages', {
+  .state('app.messagelist', {
     url: '/messages',
-    templateUrl: 'js/src/message/views/messages.html',
-    controller: 'MessagesCtrl'
+    cache: false,
+    views: {
+      'tabMy': {
+        templateUrl: 'js/src/message/views/messages.html',
+        controller: 'MessagesListCtrl'
+      }
+    }
+  })
+  //消息详情页
+  .state('app.messagedetail', {
+    url: '/messagedetail',
+    params: {message: null},
+    views: {
+      'tabMy': {
+        templateUrl: 'js/src/message/views/message_detail.html',
+        controller: 'MessagesDetailCtrl'
+      }
+    }
   })
 
   //搜索页
