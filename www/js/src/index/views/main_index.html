@@ -18,6 +18,11 @@
 
     <ion-content padding="false" class="has-header">
         
+        <ion-refresher
+            pulling-text="下拉刷新..."
+            on-refresh="refresh()">
+        </ion-refresher>
+        
         <p class="padding">新消息：您有一个“检验报告”已出，请速取</p>
 
         <form class="list padding-horizontal">
@@ -70,11 +75,6 @@
         <div class="col-80"><h4>健康资讯</h4></div>
     		<a class="col-20" ui-sref="app.news">&gt;&gt;更多</a>
     	</div>
-
-        <ion-refresher
-            pulling-text="下拉刷新..."
-            on-refresh="refresh()">
-        </ion-refresher>
 
         <ion-list>
             <ion-item ng-repeat="article in articles" class="item-thumbnail-left news" ui-sref="app.newsDetail({newsId: article.articleId})">

@@ -17,7 +17,7 @@
 	</div>
 
 	<div class="row row-center border-bottom border-weight">
-		<a class="col center border-right">未读消息 {{unreadMessageCount}}</a>
+		<a class="col center border-right" ui-sref="app.messagelist">未读消息 <span style="color: red;">{{unreadMessageCount}}</span></a>
 		<a class="col center" ui-sref="app.patientList">
             我的就诊人 
             <b>{{myPatientCount}}</b>

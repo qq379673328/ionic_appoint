@@ -60,6 +60,18 @@ a{
 .margin{
 	margin: 10px;
 }
+.margin-left{
+	margin-left: 10px;
+}
+.margin-right{
+	margin-right: 10px;
+}
+.margin-bottom{
+	margin-bottom: 10px;
+}
+.margin-top{
+	margin-top: 10px;
+}
 .padding{
 	padding: 10px;
 }
@@ -221,3 +233,10 @@ p.text2 {
 .i{
 	font-style: italic;	
 }
+/*消息提醒背景色*/
+.msg-bgcolor-typea{background-color: rgba(202, 242, 221, 1);}
+.msg-bgcolor-typeb{background-color: rgba(255, 238, 213, 1);}
+.msg-bgcolor-typec{background-color: rgba(248, 220, 247, 1);}
+.msg-bgcolor-typed{background-color: rgba(202, 242, 221, 1);}
+.msg-bgcolor-typee{background-color: rgba(154, 231, 190, 1);}
+.msg-bgcolor-typef{background-color: rgba(255, 255, 204, 1);}

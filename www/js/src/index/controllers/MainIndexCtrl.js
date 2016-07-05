@@ -20,6 +20,7 @@ app.controller('MainIndexCtrl', function($scope, $state, NewsService) {
 				$scope.imgUrlBase = data.imgUrlBase;
 				$scope.articles = data.articles;
 				$scope.$broadcast('scroll.refreshComplete');
+				isRun = false;
 			});
 		}
 	}
