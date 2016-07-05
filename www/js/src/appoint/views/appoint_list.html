@@ -67,11 +67,13 @@
         			{{appoint.expName}}
         		</span>
         	</div>
-        	<div class="patient_row">
+        	<div class="patient_row" ng-switch on="appoint.state">
         		<span class="weight_font">{{appoint.patientname}}</span>
         		<span class="space_left weight_font">{{appoint.gender}}</span>
         		<span class="space_left weight_font">{{appoint.phone}}</span>
-        		<span class="float_right">{{appoint.state == 1 ? '有效' : '已完成'}}</span>
+        		<span ng-switch-when="1" class="float_right">有效</span>
+        		<span ng-switch-when="0" class="float_right">已完成</span>
+        		<span ng-switch-when="9" class="float_right">已退号</span>
         	</div>
         	<div class="patient_row">
         		<button class="appoint_btn float_left" ng-click="goDatil(appoint)">

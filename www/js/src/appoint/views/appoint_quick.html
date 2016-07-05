@@ -17,59 +17,89 @@
         <div class="row row-center border-bottom">
         	
         		<div class="col col-10">
+        		 <a ui-sref="hosSearch({targetState: 'appointDepart'})">
                 	<img src="img/registered_home.png" style="width: 100%">
+                 </a>
            	    </div>
             	<div class="col col-80">
+                   <a ui-sref="hosSearch({targetState: 'appointDepart'})">
                 	{{appoint.orgName}}
+                  </a>
             	</div>
             	<div class="col col-10">
-            		<a ui-sref="hosSearch({targetState: 'appointDepart'})">
+            		 <a ui-sref="hosSearch({targetState: 'appointDepart'})">
                 		<i class="icon ion-chevron-right"></i>
-                	</a>
+                    </a>
             	</div>
         	
             
         </div>
 
         <div class="row row-center border-bottom">
-            <div class="col col-10">
-                <img src="img/registered_sjwk.png" style="width: 100%">
-            </div>
-            <div class="col col-80">
-                {{arrayJob.deptName}}
-            </div>
-            <div class="col col-10">
-                <i class="icon ion-chevron-right"></i>
-            </div>
+        
+
+	            <div class="col col-10">
+	            	<a ui-sref="appointDepart({hos: hos})">
+	                	<img src="img/registered_sjwk.png" style="width: 100%">
+	                 </a>
+	            </div>
+	            <div class="col col-80">
+	                <a ui-sref="appointDepart({hos: hos})">
+	                	{{arrayJob.deptName}}
+	                 </a>
+	            </div>
+	            <div class="col col-10">
+	               <a ui-sref="appointDepart({hos: hos})">
+	                	<i class="icon ion-chevron-right"></i>
+	               </a>
+	            </div>
+	       
         </div>
 
         <div class="row row-center border-bottom">
+      	 	
             <div class="col col-10">
-                <img src="img/registered_date.png" style="width: 100%">
+            	<a ui-sref="appointDate({dept: dept})">
+                	<img src="img/registered_date.png" style="width: 100%">
+                </a>
             </div>
             <div class="col col-80">
-                {{arrayJob.arrayjobDate | date: 'yyyy-MM-dd'}}
-                {{arrayJob.regisrationPeriodDn}}
+            	<a ui-sref="appointDate({dept: dept})">
+	                {{arrayJob.arrayjobDate | date: 'yyyy-MM-dd'}}
+	                {{arrayJob.regisrationPeriodDn}}
+                 </a>
             </div>
             <div class="col col-10">
-                <i class="icon ion-chevron-right"></i>
+            	<a ui-sref="appointDate({dept: dept})">
+                	<i class="icon ion-chevron-right"></i>
+                </a>
             </div>
+     
         </div>
 
         <div class="row row-center border-bottom">
+        	
+
             <div class="col col-10">
-                <img src="img/registered_ptmz.png" style="width: 100%">
+            	<a ui-sref="appointDate({dept: dept})">
+                	<img src="img/registered_ptmz.png" style="width: 100%">
+                </a>
             </div>
             <div class="col col-80">
-                {{arrayJob.clinicName}}
+            	<a ui-sref="appointDate({dept: dept})">
+                	{{arrayJob.clinicName}}
+                </a>
             </div>
             <div class="col col-10">
-                <i class="icon ion-chevron-right"></i>
+            	<a ui-sref="appointDate({dept: dept})">
+                	<i class="icon ion-chevron-right"></i>
+                </a>
             </div>
+            
         </div>
 
         
-        <button ng-if="arrayJob != null" class=" button button-balanced  button-block " ng-click="appoint();">预约</button>
+        <button ng-if="arrayJob != null" class=" button button-balanced  button-block " ng-click="appointMent();">预约</button>
         <button ng-if="arrayJob == null" class=" button button-stable  button-block">预约</button>
 
     </ion-content>

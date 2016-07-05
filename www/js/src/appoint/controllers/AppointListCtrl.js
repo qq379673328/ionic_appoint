@@ -1,5 +1,5 @@
 //我的预约列表
-app.controller('AppointListCtrl',function($scope, $stateParams, $state,AppointService,APPCONFIG){
+app.controller('AppointListCtrl',function($scope, $stateParams, $state,$ionicPopup,AppointService,APPCONFIG){
 	//是否在加载数据
     var isRun = false;
     //分页起始条数
@@ -38,9 +38,25 @@ app.controller('AppointListCtrl',function($scope, $stateParams, $state,AppointSe
 	}
 	//退号
 	$scope.cancelAppoint= function(appoint){
-		AppointService.back(appoint.id,appoint.state).then(function(data){
-			console.log('dsfe4242');
-			console.log(data);
+		$ionicPopup.confirm({
+			title:'退号确认',
+			template:'退掉后将不能恢复该预约，确定要退掉该预约号吗？',
+			cancelText:'取消',
+			okText:'确定'
+		}).then(function(res){
+				if(res){
+					AppointService.back(appoint.id,appoint.state).then(function(data){			
+					for(var i=0;i<$scope.list.length;i++){
+						var ap = $scope.list[i];
+						if(ap.id==appoint.id){
+							$scope.list[i].state='9';//设置预约状态
+							break;
+						}
+					}			
+				});
+			}
 		});
+			
+		
 	}
 });
