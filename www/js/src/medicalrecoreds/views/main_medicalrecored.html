@@ -1,4 +1,4 @@
-<ion-view title="就医记录">
+<ion-view title="就医记录" hide-back-button="true">
     <ion-content padding="false" class="has-header">
 
 	<ion-refresher
@@ -18,7 +18,7 @@
 	    		{{patient.name}}
 		    	&nbsp;&nbsp;&nbsp;&nbsp;
 		    	<a class="color-white" 
-		    		ui-sref="app.patientList({targetState: 'app.medicalrecored'})">切换就诊者&gt;</a>
+		    		ui-sref="patientList({targetState: 'medicalrecored'})">切换就诊者&gt;</a>
 	    	</div>
 	    </div>
 	</div>
@@ -30,17 +30,17 @@
 		    <br/>
 		    预约记录
 		</div>
-		<a class="col center border-right border-color-main" ui-sref="app.medicalrecoredPre({idNo: patient.idNo})">
+		<a class="col center border-right border-color-main" ui-sref="medicalrecoredPre({idNo: patient.idNo})">
 			<img src="img/rd_02.png" style="height: 40px;">
 		    <br/>
 		    门诊处方
 		</a>
-		<a class="col center border-right border-color-main" ui-sref="app.medicalrecoredFee({idNo: patient.idNo})">
+		<a class="col center border-right border-color-main" ui-sref="medicalrecoredFee({idNo: patient.idNo})">
 			<img src="img/rd_04.png" style="height: 40px;">
 		    <br/>
 		    医疗费用
 		</a>
-		<a class="col center" ui-sref="app.medicalrecoredReport({idNo: patient.idNo})">
+		<a class="col center" ui-sref="medicalrecoredReport({idNo: patient.idNo})">
 			<img src="img/rd_03.png" style="height: 40px;">
 		    <br/>
 		    报告查询
@@ -54,7 +54,7 @@
 	<a 
 		class="row padding border-bottom row-center" 
 		ng-repeat="record in records"
-		ui-sref="app.medicalrecoredDetail({id: record.id})"
+		ui-sref="medicalrecoredDetail({id: record.id})"
 		>
 		<div class="col col-75 border-right">
 			<span><b>{{record.diag}}</b></span>
@@ -85,7 +85,6 @@
 	<ion-item ng-if="!hasmore" class="nomore">
         没有更多
     </ion-item>
-		
-
+	
     </ion-content>
 </ion-view>

@@ -1,11 +1,5 @@
 <ion-view title="找医院/医生">
 
-    <ion-nav-buttons side="left">
-      <div class="buttons">
-        <a class="button icon icon-right ion-arrow-left-c" ui-sref="tabs.index"></a>
-      </div>
-    </ion-nav-buttons>
-
     <ion-content padding="true" class="has-header">
         
         <form class="list padding-horizontal">
@@ -15,9 +9,8 @@
             </label>
         </form>
 
-
         <div class="list">
-            <a href="#/tab/hospital/{{hospital.hosId}}" class="item" ng-repeat="hospital in hospitals">
+            <a ui-sref="hospital({hos: hospital})" class="item" ng-repeat="hospital in hospitals">
                 <h3>{{hospital.hosOrgName}}</h3>
                 <span>{{hospital.divisioncode}} {{hospital.hosLevel}} {{hospital.hosType}}</span>
             </a>

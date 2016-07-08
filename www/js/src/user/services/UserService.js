@@ -1,8 +1,10 @@
 //用户
-app.service('UserService', function(UTIL_HTTP, UTIL_USER, $state, $stateParams){
+app.service('UserService', function(UTIL_HTTP, UTIL_USER, $q){
 	return {
 		//登录
 		login : function(params){
+			var deferred = $q.defer();
+
 			UTIL_HTTP.post({
 				url: "/login",
 				data: params
@@ -22,20 +24,23 @@ app.service('UserService', function(UTIL_HTTP, UTIL_USER, $state, $stateParams){
 					}),
 					UTIL_USER.setLoginState(true);
 
-					//登录成功返回登录之前页面
-					var from = $stateParams["from"];
-					$state.go(from && from != "login" ? from : "app.index");
+					return deferred.resolve();
+
 				}
 			});
+
+			return deferred.promise;
 		},
 		//登出
 		logout : function(){
+			var deferred = $q.defer();
 			UTIL_HTTP.post({
-				url: "/logout"
+				url: "/logout/" + UTIL_USER.getToken()
 			}).then(function(data){
 				UTIL_USER.logout();
-				$state.go("login");
+				return deferred.resolve();
 			});
+			return deferred.promise;
 		},
 		//个人中心概要信息
 		getSummary: function(){

@@ -10,9 +10,10 @@ app.controller("OtherCtrl", function($scope, $state, fromStateServ) {
     };
 });
 
-app.controller("TabsCtrl", function($scope, $state ,$ionicTabsDelegate) {
+app.controller("TabsCtrl", function($scope, $state, $ionicHistory) {
     $scope.selectTabWithIndex = function(index, targetState) {
-	    $ionicTabsDelegate.select(index, true);
 	    $state.go(targetState);
+        //切换主菜单、清楚历史记录
+        $ionicHistory.clearHistory();
 	}
 })

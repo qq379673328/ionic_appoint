@@ -9,7 +9,7 @@
 
         <a class="row margin-bottom border border-light"
         	ng-repeat="message in items"
-        	ui-sref="app.messagedetail({message: message})"
+        	ui-sref="messagedetail({message: message})"
         	ng-class="{
         	'msg-bgcolor-typea': 
         		message.msgtype =='1' 

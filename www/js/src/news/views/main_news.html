@@ -1,4 +1,4 @@
-<ion-view title="资讯" id="page5" class=" ">
+<ion-view title="资讯" hide-back-button="true">
     <ion-content padding="false" class=" manual-remove-top-padding has-header">
 
         <ion-refresher
@@ -26,7 +26,7 @@
         </div>
 
         <ion-list>
-            <ion-item ng-repeat="article in articles" class="item-thumbnail-left news" ui-sref="app.newsDetail({newsId: article.articleId})">
+            <ion-item ng-repeat="article in articles" class="item-thumbnail-left news" ui-sref="newsDetail({newsId: article.articleId})">
                 <img ng-if="article.articlePic" ng-src="{{imgUrlBase}}/{{article.articlePic}}">
                 <div>
                     <span class="news-title" 

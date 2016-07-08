@@ -53,7 +53,7 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
 
 })
 
-.run(function($ionicPlatform, $rootScope, $state, $location, $timeout, $ionicHistory, $cordovaToast, UTIL_USER) {
+.run(function($ionicPlatform, $rootScope, $state, $location, $timeout, $ionicHistory, $cordovaToast, UTIL_USER, $ionicNavBarDelegate) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -70,7 +70,7 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
     //后退按钮事件
     $ionicPlatform.registerBackButtonAction(function (e) {
         //判断处于哪个页面时双击退出
-        if ($location.path() == '/tab/index') {
+        if ($location.path() == '/app/index') {
             if ($rootScope.backButtonPressedOnceToExit) {
                 ionic.Platform.exitApp();
             } else {
@@ -82,7 +82,11 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
             }
         }
         else if ($ionicHistory.backView()) {
-            $ionicHistory.goBack();
+            if ($cordovaKeyboard.isVisible()) {
+                $cordovaKeyboard.close();
+            } else {
+                $ionicHistory.goBack();
+            }
         } else {
             $rootScope.backButtonPressedOnceToExit = true;
             $cordovaToast.showShortTop('再按一次退出系统');
@@ -98,10 +102,20 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
 
   //需要登录的页面
   var filterStates = [
-  "tabs.medicalrecored",
-  "app.messagelist"
+  "app.messagelist",
+  "app.medicalrecored",
+  "app.medicalrecoredDetail",
+  "app.medicalrecoredPre",
+  "app.medicalrecoredFee",
+  "app.medicalrecoredReport",
+  "app.my",
+  "app.patientList",
+  "app.opinion",
+  "app.messagelist",
+  "app.messagedetail",
+  "app.appointMent"
   ];
-  //监听页面切换-判断页面是否需要登录
+  //监听页面切换-开始-判断页面是否需要登录
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
     if(toState.name == 'login') return;// 如果是进入登录界面则允许
     for(var idx in filterStates){
@@ -110,11 +124,19 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
         // 如果用户不存在
         if(!UTIL_USER.isLogin()){
           event.preventDefault();// 取消默认跳转行为
-          $state.go("login", {from:fromState.name, w:'notLogin'});//跳转到登录界面
+          $state.go("login", 
+          	{from:fromState.name, "fromParams": fromParams,
+          	to: toState.name, "toParams": toParams});//跳转到登录界面
         }
+        break;
       }
-      break;
     }
+  });
+
+  //监听页面切换-完毕
+  $rootScope.$on('$stateChangeSuccess', function(event){
+    $ionicNavBarDelegate.showBar(true);
+    $ionicNavBarDelegate.showBackButton(true);
   });
 })
 
@@ -127,10 +149,16 @@ app.config(function($ionicConfigProvider) {
 //常量
 app.constant('APPCONFIG', {
   //服务端地址
-  SERVER_URL_PRE: "http://localhost:8100/api",//浏览器调试
-  //SERVER_URL_PRE: "http://192.168.1.252:9401/api-mobile/api",//打包发布
+  //SERVER_URL_PRE: "http://localhost:8100/api",//浏览器调试
+  SERVER_URL_PRE: "http://192.168.1.252:9401/api-mobile/api",//打包发布
   //分页加载每页参数
   PAGE_SIZE: 10,
   //本地数据库
   DB_FILE: "appoint.db"
 });
+
+app.controller("NavBarCtrl", function($scope, $state ,$ionicHistory) {
+    $scope.getPreviousTitle = function() {
+      return $ionicHistory.backTitle();
+    };
+})

@@ -57,7 +57,7 @@ angular.module('app.commonservices', [])
 		if(params.isShowLoading !== false){
 
 			//延迟显示loading
-			var loadingDefferTime = 1000;
+			var loadingDefferTime = 500;
 			lastTimeout = setTimeout(function(){
 				UTIL_LOADING.show();
 			}, loadingDefferTime);
@@ -200,22 +200,6 @@ angular.module('app.commonservices', [])
 			};
 		}
 	};
-})
-
-//用于页面历史的记录
-.factory("fromStateServ", function() {
-    return {
-        data: {},
-        setState: function(module, fromState, fromParams) {
-            this.data[module] = {
-                "fromState": fromState,
-                "fromParams": fromParams
-            };
-        },
-        getState: function(module) {
-            return this.data[module];
-        }
-    };
 })
 
 //公共-sqlite存储

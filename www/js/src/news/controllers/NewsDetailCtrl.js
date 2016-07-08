@@ -1,5 +1,5 @@
 //资讯详情页
-app.controller('NewsDetailCtrl', function($scope, $stateParams, APPCONFIG) {
+app.controller('NewsDetailCtrl', function($scope, $stateParams, APPCONFIG, $ionicNavBarDelegate) {
 
 	var articleId = $stateParams.newsId;
 	if(articleId){

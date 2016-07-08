@@ -1,5 +1,5 @@
-<ion-view title="医院主站">
-    <ion-content padding="false" class="has-header">
+<ion-view title="医院主站" hide-back-button="true">
+    <ion-content padding="false" hide-back-button="true" class="has-header">
 
         <div class="row">
             <div class="col-80">
@@ -7,7 +7,7 @@
             </div>
             <div class="col-20">
                 <h4>
-                    <a ui-sref="hosSearch({targetState: 'tabs.hospital'})">切换&gt;</a>
+                    <a ui-sref="hosSearch({targetState: 'hospital'})">切换&gt;</a>
                 </h4>
             </div>
             <br/>
@@ -54,7 +54,7 @@
         </div>
         <div class="item item-avatar">
         	<img src="img/yiyuan_02.png">
-        	<sspanan>价格查询</span>
+        	<span>价格查询</span>
             <br/>
         	<span>提前预约本医院就诊，无需排队</span>
         </div>

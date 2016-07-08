@@ -8,40 +8,32 @@ angular.module('app.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
     
-  .state('app', {
+  /*.state('app', {
     url: '/app',
     templateUrl: 'templates/tabsController.html',
     controller: "TabsCtrl",
     abstract:true
-  })
+  })*/
 
   //主页-首页
-  .state('app.index', {
+  .state('index', {
     url: '/index',
-    views: {
-      'tabIndex': {
-        templateUrl: 'js/src/index/views/main_index.html',
-        controller: 'MainIndexCtrl'
-      }
-    }
+    templateUrl: 'js/src/index/views/main_index.html',
+    controller: 'MainIndexCtrl'
   })
 
   //主页-医院主站
-  .state('app.hospital', {
+  .state('hospital', {
     url: '/hospital',
     cache: false,
     params: {hos: null, hosId: null},
-    views: {
-      'tabHospital': {
-        templateUrl: 'js/src/hospital/views/detail.html',
-        controller: 'HosDetailCtrl'
-      }
-    }
+    templateUrl: 'js/src/hospital/views/detail.html',
+    controller: 'HosDetailCtrl'
   })
   //医院切换、医院选择页面
   .state('hosSearch', {
     url: '/hosSearch',
-    params: {targetState: "app.hospital"},
+    params: {targetState: "hospital"},
     templateUrl: 'js/src/hospital/views/search_hos.html',
     controller: "SearchHosCtrl"
   })
@@ -91,150 +83,96 @@ angular.module('app.routes', [])
   })
 
   //主页-记录
-  .state('app.medicalrecored', {
+  .state('medicalrecored', {
     url: '/medicalrecored',
     params: {patient: null, patientId: null},
     cache: false,
-    views: {
-      'tabMedicalrecored': {
-        templateUrl: 'js/src/medicalrecoreds/views/main_medicalrecored.html',
-        controller: 'MainMedicalrecordCtrl'
-      }
-    }
+    templateUrl: 'js/src/medicalrecoreds/views/main_medicalrecored.html',
+    controller: 'MainMedicalrecordCtrl'
   })
   //就诊明细
-  .state('app.medicalrecoredDetail', {
+  .state('medicalrecoredDetail', {
     url: '/medicalrecoredDetail/:id',
-    views: {
-      'tabMedicalrecored': {
-        templateUrl: 'js/src/medicalrecoreds/views/medicalrecord_detail.html',
-        controller: 'MedicalrecordDetailCtrl'
-      }
-    }
+    templateUrl: 'js/src/medicalrecoreds/views/medicalrecord_detail.html',
+    controller: 'MedicalrecordDetailCtrl'
   })
   //门诊-处方明细
-  .state('app.medicalrecoredPre', {
+  .state('medicalrecoredPre', {
     url: '/medicalrecoredPre/:idNo',
-    views: {
-      'tabMedicalrecored': {
-        templateUrl: 'js/src/medicalrecoreds/views/medicalrecord_pre.html',
-        controller: 'MedicalrecordPreCtrl'
-      }
-    }
+    templateUrl: 'js/src/medicalrecoreds/views/medicalrecord_pre.html',
+    controller: 'MedicalrecordPreCtrl'
   })
   //门诊-医疗费用
-  .state('app.medicalrecoredFee', {
+  .state('medicalrecoredFee', {
     url: '/medicalrecoredFee/:idNo',
-    views: {
-      'tabMedicalrecored': {
-        templateUrl: 'js/src/medicalrecoreds/views/medicalrecord_fee.html',
-        controller: 'MedicalrecordFeeCtrl'
-      }
-    }
+    templateUrl: 'js/src/medicalrecoreds/views/medicalrecord_fee.html',
+    controller: 'MedicalrecordFeeCtrl'
   })
   //门诊-报告查询
-  .state('app.medicalrecoredReport', {
+  .state('medicalrecoredReport', {
     url: '/medicalrecoredReport/:idNo',
-    views: {
-      'tabMedicalrecored': {
-        templateUrl: 'js/src/medicalrecoreds/views/medicalrecord_report.html',
-        controller: 'MedicalrecordReportCtrl'
-      }
-    }
+    templateUrl: 'js/src/medicalrecoreds/views/medicalrecord_report.html',
+    controller: 'MedicalrecordReportCtrl'
   })
-
 
   //主页-资讯
-  .state('app.news', {
+  .state('news', {
     url: '/news',
-    views: {
-      'tabNews': {
-        templateUrl: 'js/src/news/views/main_news.html',
-        controller: 'MainNewsCtrl'
-      }
-    }
+    templateUrl: 'js/src/news/views/main_news.html',
+    controller: 'MainNewsCtrl'
   })
   //资讯-详情
-  .state('app.newsDetail', {
+  .state('newsDetail', {
     url: '/detail/:newsId',
     params: {newsId: null},
-    views: {
-      'tabNews': {
-        templateUrl: 'js/src/news/views/news_detail.html',
-        controller: 'NewsDetailCtrl'
-      }
-    }
+    templateUrl: 'js/src/news/views/news_detail.html',
+    controller: 'NewsDetailCtrl'
   })
 
 
   //主页-我的
-  .state('app.my', {
+  .state('my', {
     url: '/my',
     cache: false,
-    views: {
-      'tabMy': {
-        templateUrl: 'js/src/user/views/main_my.html',
-        controller: 'MainMyCtrl'
-      }
-    }
+    templateUrl: 'js/src/user/views/main_my.html',
+    controller: 'MainMyCtrl'
   })
   //就诊人-列表
-
-  .state('app.patientList', {
+  .state('patientList', {
     url: '/patient-list',
-    params: {targetState: "app.patientEdit",otherParams:null},
+    params: {targetState: "patientEdit",otherParams:null},
     cache: false,
-    views: {
-      'tabMy': {
-        templateUrl: 'js/src/user/views/patient_list.html',
-        controller: 'PatientListCtrl'
-      }
-    }
+    templateUrl: 'js/src/user/views/patient_list.html',
+    controller: 'PatientListCtrl'
   })
   //就诊人-编辑
-  .state('app.patientEdit', {
+  .state('patientEdit', {
     url: '/patient-edit',
     params: {patient: null},
-    views: {
-      'tabMy': {
-        templateUrl: 'js/src/user/views/patient_edit.html',
-        controller: 'PatientEditCtrl'
-      }
-    }
+    templateUrl: 'js/src/user/views/patient_edit.html',
+    controller: 'PatientEditCtrl'
   })
   //关于我们
-  .state('app.aboutUs', {
+  .state('aboutUs', {
     url: '/aboutUs',
-    views: {
-      'tabMy': {
-        templateUrl: 'js/src/system/views/about_us.html'
-      }
-    }
+    templateUrl: 'js/src/system/views/about_us.html'
   })
   //功能介绍
-  .state('app.introduction', {
+  .state('introduction', {
     url: '/introduction',
-    views: {
-      'tabMy': {
-        templateUrl: 'js/src/system/views/introduction.html'
-      }
-    }
+    templateUrl: 'js/src/system/views/introduction.html'
   })
   //意见反馈
-  .state('app.opinion', {
+  .state('opinion', {
     url: '/opinion',
-    views: {
-      'tabMy': {
-        templateUrl: 'js/src/user/views/opinion.html',
-        controller: 'OpinionCtrl'
-      }
-    }
+    templateUrl: 'js/src/user/views/opinion.html',
+    controller: 'OpinionCtrl'
   })
-
 
   //登录页
   .state('login', {
     url: '/login',
+    params: {from: null, fromParams: null, to: null, toParams: null},
     templateUrl: 'js/src/user/views/login.html',
     controller: 'LoginCtrl'
   })
@@ -247,26 +185,18 @@ angular.module('app.routes', [])
   })
 
   //消息列表页
-  .state('app.messagelist', {
+  .state('messagelist', {
     url: '/messages',
     cache: false,
-    views: {
-      'tabMy': {
-        templateUrl: 'js/src/message/views/messages.html',
-        controller: 'MessagesListCtrl'
-      }
-    }
+    templateUrl: 'js/src/message/views/messages.html',
+    controller: 'MessagesListCtrl'
   })
   //消息详情页
-  .state('app.messagedetail', {
+  .state('messagedetail', {
     url: '/messagedetail',
     params: {message: null},
-    views: {
-      'tabMy': {
-        templateUrl: 'js/src/message/views/message_detail.html',
-        controller: 'MessagesDetailCtrl'
-      }
-    }
+    templateUrl: 'js/src/message/views/message_detail.html',
+    controller: 'MessagesDetailCtrl'
   })
 
   //搜索页
@@ -276,30 +206,6 @@ angular.module('app.routes', [])
     controller: 'SearchHosAndDocCtrl'
   })	
 	
-
-	
-	
-		//找医生页
-	.state('searchDoctor',{
-		url:'/searchDoctor',
-		templateUrl:'js/src/doctor/views/search_doc.html',
-		controller:'SearchDoctorCtrl'
-	})
-	
-	//查药价页
-	.state('searchDurgPrice',{
-		url:'/searchDurgPrice',
-		templateUrl:'js/src/durg/views/search_durg_price.html',
-		controller:'SearchDurgPriceCtrl'
-	})
-	
-	//查服务价页
-	.state('searchServicePrice',{
-		url:'/searchServicePrice',
-		templateUrl:'js/src/durg/views/search_service_price.html',
-		controller:'SearchServicePriceCtrl'
-	})
-
 	//预约挂号确认页
 	.state('appointMent',{
 		params:{aj:null,patient:null,otherParams:null},
@@ -373,7 +279,7 @@ angular.module('app.routes', [])
   ;
 
   $urlRouterProvider
-    .otherwise('/app/index')
+    .otherwise('index')
     ;
 
 });

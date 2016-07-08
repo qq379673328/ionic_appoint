@@ -13,6 +13,8 @@ app.controller('MainMedicalrecordCtrl', function($scope, $stateParams, MedicalRe
 
 	//刷新页面
 	$scope.doRefresh = function(cb){
+		$scope.hasmore = true;
+		offset = 0;
 		if($scope.patient){
 			$scope.loadMedicalRecored(true)
 		}else{

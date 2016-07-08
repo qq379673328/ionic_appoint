@@ -1,5 +1,7 @@
  //医院-详情
-app.controller('HosDetailCtrl', function($scope, $stateParams, HospitalService) {
+app.controller('HosDetailCtrl', function($scope, $stateParams, HospitalService, $ionicHistory) {
+
+	//$ionicHistory.clearHistory();
 
 	if($stateParams.hos){//传入医院对象
 		$scope.hos = $stateParams.hos;

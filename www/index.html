@@ -51,16 +51,51 @@
   <body ng-app="app" animation="slide-left-right-ios7">
 
     <ion-nav-bar
-      class="bar-balanced" 
+      align-title="center"
+      ng-controller="NavBarCtrl"
+      class="bar-balanced"
       animation="nav-title-slide-ios7"
       back-button-type="button-icon" 
       back-button-icon="ion-arrow-left-c">
+
       <ion-nav-back-button class="button-clear">
-        <i class="ion-arrow-left-c"></i>
+        <i class="ion-arrow-left-c"></i>{{getPreviousTitle() || '返回'}}
       </ion-nav-back-button>
+
     </ion-nav-bar>
 
+    <!--
     <ion-nav-view animation="slide-left-right"></ion-nav-view>
+    -->
+
+    <ion-view>
+      <ion-content padding="false">
+          <ion-nav-view style="bottom: 50px;"></ion-nav-view>
+          <div ng-controller="TabsCtrl" class="tabs tabs-stable tabs-icon-top">
+            <a class="tab-item" ng-click="selectTabWithIndex(1, 'index')">
+                <i class="icon ion-home"></i>
+                首页
+            </a>
+            <a class="tab-item" ng-click="selectTabWithIndex(2, 'hospital')">
+                <i class="icon ion-android-list"></i>
+                医院
+            </a>
+            <a class="tab-item" ng-click="selectTabWithIndex(3, 'medicalrecored')">
+                <i class="icon ion-ios-cloud"></i>
+                记录
+            </a>
+            <a class="tab-item" ng-click="selectTabWithIndex(4, 'news')">
+                <i class="icon ion-ios-list-outline"></i>
+                资讯
+            </a>
+            <a class="tab-item" ng-click="selectTabWithIndex(5, 'my')">
+                <i class="icon ion-android-contact"></i>
+                我的
+            </a>
+
+          </div>
+      </ion-content>
+  </ion-view>
 
   </body>
 </html>

@@ -34,5 +34,17 @@ angular.module('app.directives', [])
             };
         }
     };
-}]);
+}])
+
+//自定义后退按钮-独立页面使用
+.directive('agBtnBack', [function(){
+    return {
+        restrict: 'EA',
+        replace: true,
+        template: '<ion-nav-buttons side="left"><div class="buttons"><a class="button icon icon-right ion-arrow-left-c" ng-click="$ionicGoBack()"></a></div></ion-nav-buttons>'
+        //template: '<ion-nav-bar class="bar-positive"><ion-nav-back-button>返回</ion-nav-back-button></ion-nav-bar>'
+    };
+}])
+
+;
 
