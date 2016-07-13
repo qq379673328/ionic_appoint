@@ -15,7 +15,7 @@ app.controller('AppointMentCtrl',function($scope, $stateParams, $state,PatientSe
 		$scope.patient=data;
 		});
 	}
-	
+
 	function appointSimpleDate(sdate){
 		var year = sdate.getFullYear();
 		var month = sdate.getMonth()+1;
@@ -45,15 +45,11 @@ app.controller('AppointMentCtrl',function($scope, $stateParams, $state,PatientSe
 		//把排班信息放入其他参数中传过去
 		$state.go('app.patientList',{targetState:'appointMent',otherParams:aj});
 	}
-	//跳转的添加就诊人
-	$scope.toAddPatient = function(){
-		$state.go('app.patientEdit');
-	}
 	//预约挂号
 	$scope.appointMent = function(){
 		AppointService.add(
 			$scope.patient.id,
-		     $scope.aj.id
+			$scope.aj.id
 		).then(function(data){
 			console.log(data);
 			$state.go("appointSuccess", {appointId: data});

@@ -1,35 +1,31 @@
 <ion-view title="科室">
 
+	<ion-content padding="false" class="has-header">
 
-    <ion-content padding="false" class="has-header">
-        
-        <div class="row">{{hos.hosOrgName}}</div>
-		
-     	<div class="row">
-     		
-     		<div class="col">  
-     			 <ion-list>
-	     			<ion-item ng-repeat="dep in oneList" ng-click="showChildList(dep)" >
-	     				<span>{{dep.deptName}}</span>
-	     			</ion-item>
-	     			 <ion-item ng-if="!hasmore" >
-               			 没有更多
-           			 </ion-item>	     			
-     			 </ion-list>
-     		</div>
-     		
-     		<div class="col">     			
-     			 <ion-list>
-	     			<ion-item ng-repeat="cdep in chidList" ng-click="go(cdep)" >
-	     				<span>{{cdep.deptName}}</span>
-	     			</ion-item>
-	     			 <ion-item ng-if="!hasmore" >
-               			 没有更多
-           			 </ion-item>	     			
-     			 </ion-list>
-     		</div>
-     	</div>      
+	<div class="row h4 bg-spe padding"><b>{{hos.hosOrgName}}</b></div>
 
+		<div class="row padding-none bg-grey">
+			<div class="col padding-none">
+				<ion-list>
+					<ion-item
+						class="border-none"
+						ng-repeat="dep in oneList"
+						ng-click="showChildList(dep)" >
+						<span>{{dep.deptName}}</span>
+					</ion-item>
+				</ion-list>
+			</div>
+			<div class="col padding-none">
+				<ion-list>
+					<ion-item
+						class="border-none"
+						ng-repeat="cdep in chidList"
+						ng-click="go(cdep)">
+						<span>{{cdep.deptName}}</span>
+					</ion-item>
+				</ion-list>
+			</div>
+		</div>
 
-    </ion-content>
+	</ion-content>
 </ion-view>

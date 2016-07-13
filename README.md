@@ -8,7 +8,7 @@ ionic版本appoint
 
 * gulp watch
 
-	开发时使用，用于监控js/css等文件的压缩合并。
+	开发时使用，用于监控js/css等文件的压缩合并。（注意：此命令执行后若js改变后无法压缩成功，命令会报错并自动结束。需要调整js并重新执行命令。）
 
 * gulp minify
 

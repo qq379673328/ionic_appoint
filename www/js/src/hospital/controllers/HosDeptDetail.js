@@ -1,5 +1,10 @@
-//消息列表
-app.controller('MessagesListCtrl', function($scope, $state, $stateParams, APPCONFIG, MessageService) {
+//医院-科室信息
+app.controller('HosDeptDetailCtrl', function($scope, $stateParams, DoctorService, APPCONFIG) {
+
+	var dept = $stateParams.dept,
+		hos = $stateParams.hos;
+	$scope.dept = dept;
+	$scope.hos = hos;
 
 	//是否有更多
 	$scope.hasmore = true;
@@ -7,31 +12,33 @@ app.controller('MessagesListCtrl', function($scope, $state, $stateParams, APPCON
 	var offset = 0;
 	var isRun = false;
 
-	$scope.items = [];
+	$scope.doctors = [];
 
 	//加载数据
-	function loadData(isReload, extParams){
-
+	function loadData(isReload){
+		if(!hos || !dept) return;
 		if(!isRun){
 			isRun = true;
-			MessageService.getMessageFromLocal({
+			DoctorService.getDoctorsRecommond(
+				hos.hosOrgCode, dept.deptCode, {
 				offset: offset
 			})
 			.then(function(data){
-				if(!data || data.length < APPCONFIG.PAGE_SIZE){
+				if(!data || !data.doctors || data.doctors.length < APPCONFIG.PAGE_SIZE){
 					$scope.hasmore = false;
 				}
 				offset += APPCONFIG.PAGE_SIZE;
 				if(isReload){//刷新
-					$scope.items = data;
+					$scope.doctors = data.doctors;
 				}else{//加载更多
-					$scope.items = $scope.items.concat(data);
+					$scope.doctors = $scope.doctors.concat(data.doctors);
 				}
 				isRun = false;
 				$scope.$broadcast('scroll.refreshComplete');
 				$scope.$broadcast('scroll.infiniteScrollComplete');
 			});
 		}
+
 	}
 
 	//加载更多
@@ -43,11 +50,7 @@ app.controller('MessagesListCtrl', function($scope, $state, $stateParams, APPCON
 
 	//查询
 	$scope.refresh = function(current){
-		MessageService.refreshServerMessages(true).then(function(){
-			$scope.hasmore = true;
-			offset = 0;
-			loadData(true);
-		});
+		loadData(true);
 	};
 
 	$scope.refresh();

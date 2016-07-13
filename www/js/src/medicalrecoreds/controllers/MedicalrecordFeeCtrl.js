@@ -1,14 +1,15 @@
 //门诊-费用明细
-app.controller('MedicalrecordFeeCtrl', function($scope, $state, $stateParams, APPCONFIG, MedicalRecordService) {
-	
+app.controller('MedicalrecordFeeCtrl', function($scope, $state, $stateParams, APPCONFIG, MedicalRecordService, PatientService) {
+
 	//是否有更多
 	$scope.hasmore = true;
 	//是否在加载数据
-    var isRun = false;
-    //分页起始条数
-    var offset = 0;
+	var isRun = false;
+	//分页起始条数
+	var offset = 0;
 
-    var idNo = $stateParams.idNo;
+	var idNo = $stateParams.idNo,
+		hosOrgCode = $stateParams.hosOrgCode;
 
 	$scope.searchParams = {};
 	$scope.items = [];
@@ -20,7 +21,7 @@ app.controller('MedicalrecordFeeCtrl', function($scope, $state, $stateParams, AP
 			isRun = true;
 			MedicalRecordService.getOutpatientRecordsFee(idNo, {
 				offset: offset
-			})
+			}, hosOrgCode)
 			.then(function(data){
 				if(!data || data.length < APPCONFIG.PAGE_SIZE){
 					$scope.hasmore = false;
@@ -46,13 +47,20 @@ app.controller('MedicalrecordFeeCtrl', function($scope, $state, $stateParams, AP
 	};
 
 	//加载更多
-	$scope.loadMore = function(){	
+	$scope.loadMore = function(){
 		if($scope.hasmore){
 			loadData(false);
 		}
 	};
 
 	//默认加载
-	loadData(true);
+	if(!idNo){
+		PatientService.getCurrentPatient().then(function(data){
+			idNo = data.idNo;
+			loadData(true);
+		});
+	}else{
+		loadData(true);
+	}
 
 });

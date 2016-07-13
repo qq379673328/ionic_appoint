@@ -1,14 +1,15 @@
 //门诊-报告明细
-app.controller('MedicalrecordReportCtrl', function($scope, $state, $stateParams, APPCONFIG, MedicalRecordService) {
-	
+app.controller('MedicalrecordReportCtrl', function($scope, $state, $stateParams, APPCONFIG, MedicalRecordService, PatientService) {
+
 	//是否有更多
 	$scope.hasmore = true;
 	//是否在加载数据
-    var isRun = false;
-    //分页起始条数
-    var offset = 0;
+	var isRun = false;
+	//分页起始条数
+	var offset = 0;
 
-    var idNo = $stateParams.idNo;
+	var idNo = $stateParams.idNo,
+		hosOrgCode = $stateParams.hosOrgCode;
 
 	$scope.searchParams = {};
 	$scope.tests = [];
@@ -26,7 +27,7 @@ app.controller('MedicalrecordReportCtrl', function($scope, $state, $stateParams,
 			if($scope.current == "Test"){
 				MedicalRecordService.getOutpatientRecordsTestReport(idNo, {
 					offset: offset
-				})
+				}, hosOrgCode)
 				.then(function(data){
 					if(!data || data.length < APPCONFIG.PAGE_SIZE){
 						$scope.hasmore = false;
@@ -47,7 +48,7 @@ app.controller('MedicalrecordReportCtrl', function($scope, $state, $stateParams,
 			if($scope.current == "Test"){
 				MedicalRecordService.getOutpatientRecordsCheckReport(idNo, {
 					offset: offset
-				})
+				}, hosOrgCode)
 				.then(function(data){
 					if(!data || data.length < APPCONFIG.PAGE_SIZE){
 						$scope.hasmore = false;
@@ -75,13 +76,20 @@ app.controller('MedicalrecordReportCtrl', function($scope, $state, $stateParams,
 	};
 
 	//加载更多
-	$scope.loadMore = function(){	
+	$scope.loadMore = function(){
 		if($scope.hasmore){
 			loadData(false);
 		}
 	};
 
 	//默认加载
-	loadData(true);
+	if(!idNo){
+		PatientService.getCurrentPatient().then(function(data){
+			idNo = data.idNo;
+			loadData(true);
+		});
+	}else{
+		loadData(true);
+	}
 
 });

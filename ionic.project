@@ -1,6 +1,9 @@
 {
   "name": "ionic_test",
   "app_id": "",
+  "gulpStartupTasks": [
+    "minify"
+  ],
   "proxies": [
     {
       "path": "/api",

@@ -1,7 +1,11 @@
  //登录
-app.controller('LoginCtrl', function($scope, $state, $stateParams, UserService) {	
-	
+app.controller('LoginCtrl', function($scope, $state, $stateParams, UserService, $ionicHistory) {
+
 	$scope.loginParams = {username: 'ceshi', password: '11111111'};
+
+	$ionicHistory.nextViewOptions({
+		disableBack: true
+	});
 
 	$scope.login = function(){
 		UserService.login($scope.loginParams).then(function(){

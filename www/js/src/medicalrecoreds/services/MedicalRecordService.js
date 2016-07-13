@@ -1,6 +1,6 @@
 //就诊记录
 app.service('MedicalRecordService', function(UTIL_HTTP){
-		
+
 	return {
 		//就诊记录列表
 		getOutpatientRecords: function(idNo, pageParams){
@@ -10,28 +10,36 @@ app.service('MedicalRecordService', function(UTIL_HTTP){
 			});
 		},
 		//就诊记录列表-有处方数据
-		getOutpatientRecordsPrescribe: function(idNo, pageParams){
+		getOutpatientRecordsPrescribe: function(idNo, pageParams, hosOrgCode){
+			pageParams = pageParams || {};
+			pageParams.hosOrgCode = hosOrgCode;
 			return UTIL_HTTP.get({
 				url: "/medicalRecords-prescribedata/patient-" + idNo,
 				data: pageParams
 			});
 		},
 		//就诊记录列表-有医疗费用数据
-		getOutpatientRecordsFee: function(idNo, pageParams){
+		getOutpatientRecordsFee: function(idNo, pageParams, hosOrgCode){
+			pageParams = pageParams || {};
+			pageParams.hosOrgCode = hosOrgCode;
 			return UTIL_HTTP.get({
 				url: "/medicalRecords-feedata/patient-" + idNo,
 				data: pageParams
 			});
 		},
 		//就诊记录列表-有检查报告数据
-		getOutpatientRecordsCheckReport: function(idNo, pageParams){
+		getOutpatientRecordsCheckReport: function(idNo, pageParams, hosOrgCode){
+			pageParams = pageParams || {};
+			pageParams.hosOrgCode = hosOrgCode;
 			return UTIL_HTTP.get({
 				url: "/medicalRecords-checkreportdata/patient-" + idNo,
 				data: pageParams
 			});
 		},
 		//就诊记录列表-有检验报告数据
-		getOutpatientRecordsTestReport: function(idNo, pageParams){
+		getOutpatientRecordsTestReport: function(idNo, pageParams, hosOrgCode){
+			pageParams = pageParams || {};
+			pageParams.hosOrgCode = hosOrgCode;
 			return UTIL_HTTP.get({
 				url: "/medicalRecords-testreportdata/patient-" + idNo,
 				data: pageParams

@@ -102,18 +102,18 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
 
   //需要登录的页面
   var filterStates = [
-  "app.messagelist",
-  "app.medicalrecored",
-  "app.medicalrecoredDetail",
-  "app.medicalrecoredPre",
-  "app.medicalrecoredFee",
-  "app.medicalrecoredReport",
-  "app.my",
-  "app.patientList",
-  "app.opinion",
-  "app.messagelist",
-  "app.messagedetail",
-  "app.appointMent"
+  "messagelist",
+  "medicalrecored",
+  "medicalrecoredDetail",
+  "medicalrecoredPre",
+  "medicalrecoredFee",
+  "medicalrecoredReport",
+  "my",
+  "patientList",
+  "opinion",
+  "messagelist",
+  "messagedetail",
+  "appointMent"
   ];
   //监听页面切换-开始-判断页面是否需要登录
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
@@ -149,8 +149,8 @@ app.config(function($ionicConfigProvider) {
 //常量
 app.constant('APPCONFIG', {
   //服务端地址
-  //SERVER_URL_PRE: "http://localhost:8100/api",//浏览器调试
-  SERVER_URL_PRE: "http://192.168.1.252:9401/api-mobile/api",//打包发布
+  SERVER_URL_PRE: "http://localhost:8100/api",//浏览器调试
+  //SERVER_URL_PRE: "http://192.168.1.252:9401/api-mobile/api",//打包发布
   //分页加载每页参数
   PAGE_SIZE: 10,
   //本地数据库

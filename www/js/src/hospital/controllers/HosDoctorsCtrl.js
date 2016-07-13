@@ -1,4 +1,5 @@
-app.controller('MedicalrecordPreCtrl', function($scope, $state, $stateParams, APPCONFIG, MedicalRecordService, PatientService) {
+ //专家介绍
+app.controller('HosDoctorsCtrl', function($scope, $state, $stateParams, APPCONFIG, DoctorService) {
 
 	//是否有更多
 	$scope.hasmore = true;
@@ -7,31 +8,30 @@ app.controller('MedicalrecordPreCtrl', function($scope, $state, $stateParams, AP
 	//分页起始条数
 	var offset = 0;
 
-	var idNo = $stateParams.idNo,
-		hosOrgCode = $stateParams.hosOrgCode;
+	var hos = $stateParams.hos;
 
-	$scope.items = [];
+	$scope.doctors = [];
+	$scope.hos = hos;
 
 	//加载数据
 	function loadData(isReload, extParams){
-		if(!idNo) return;
+		if(!hos) return;
 		if(!isRun){
 			isRun = true;
-			MedicalRecordService.getOutpatientRecordsPrescribe(idNo, {
+			DoctorService.getDoctorsSpec(hos.hosOrgCode, {
 				offset: offset
-			}, hosOrgCode)
+			})
 			.then(function(data){
-				if(!data || data.length < APPCONFIG.PAGE_SIZE){
+				if(!data || !data.doctors || data.doctors.length < APPCONFIG.PAGE_SIZE){
 					$scope.hasmore = false;
 				}
 				offset += APPCONFIG.PAGE_SIZE;
 				if(isReload){//刷新
-					$scope.items = data;
+					$scope.doctors = data.doctors;
 				}else{//加载更多
-					$scope.items = $scope.items.concat(data);
+					$scope.doctors = $scope.doctors.concat(data.doctors);
 				}
 				isRun = false;
-				$scope.$broadcast('scroll.refreshComplete');
 				$scope.$broadcast('scroll.infiniteScrollComplete');
 			});
 		}
@@ -43,22 +43,11 @@ app.controller('MedicalrecordPreCtrl', function($scope, $state, $stateParams, AP
 		offset = 0;
 		loadData(true);
 	};
-
 	//加载更多
 	$scope.loadMore = function(){
 		if($scope.hasmore){
 			loadData(false);
 		}
 	};
-
-	//默认加载
-	if(!idNo){
-		PatientService.getCurrentPatient().then(function(data){
-			idNo = data.idNo;
-			loadData(true);
-		});
-	}else{
-		loadData(true);
-	}
 
 });

@@ -1,12 +1,12 @@
  //医生查询、找大夫
 app.controller('SearchDoctorCtrl', function($scope, $state, $stateParams, APPCONFIG, DoctorService) {
-	
+
 	//是否有更多
 	$scope.hasmore = true;
 	//是否在加载数据
-    var isRun = false;
-    //分页起始条数
-    var offset = 0;
+	var isRun = false;
+	//分页起始条数
+	var offset = 0;
 
 	$scope.searchParams = {};
 	$scope.items = [];
@@ -60,7 +60,7 @@ app.controller('SearchDoctorCtrl', function($scope, $state, $stateParams, APPCON
 		$scope.refresh();
 	}, true);
 	//加载更多
-	$scope.loadMore = function(){	
+	$scope.loadMore = function(){
 		if($scope.hasmore){
 			loadData(false);
 		}
@@ -85,5 +85,5 @@ app.controller('SearchDoctorCtrl', function($scope, $state, $stateParams, APPCON
 			{desc: "特聘", value: "6"}
 		]
 	};
-	
+
 })

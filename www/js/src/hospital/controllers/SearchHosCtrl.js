@@ -1,13 +1,13 @@
 
  //医院切换、医院查询
 app.controller('SearchHosCtrl', function($scope, $state, $stateParams, APPCONFIG, HospitalService) {
-	
+
 	//是否有更多
 	$scope.hasmore = true;
 	//是否在加载数据
-    var isRun = false;
-    //分页起始条数
-    var offset = 0;
+	var isRun = false;
+	//分页起始条数
+	var offset = 0;
 
 	$scope.searchParams = {};
 	$scope.items = [];
@@ -61,7 +61,7 @@ app.controller('SearchHosCtrl', function($scope, $state, $stateParams, APPCONFIG
 		$scope.refresh();
 	}, true);
 	//加载更多
-	$scope.loadMore = function(){	
+	$scope.loadMore = function(){
 		if($scope.hasmore){
 			loadData(false);
 		}
@@ -87,7 +87,7 @@ app.controller('SearchHosCtrl', function($scope, $state, $stateParams, APPCONFIG
 			{desc: "专科医院", value: "A5"}
 		]
 	};
-	
+
 
 
 });
