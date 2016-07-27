@@ -79,6 +79,9 @@ a{
 .border-none{
 	border: none;
 }
+.border-circle{
+	border-radius: 50%;
+}
 .margin{
 	margin: 10px;
 }

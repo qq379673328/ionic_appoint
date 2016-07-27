@@ -74,6 +74,9 @@
         },
         "cordova-sqlite-storage": {
             "PACKAGE_NAME": "com.ionicframework.ionictestworkspace839540"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.ionicframework.ionictestworkspace839540"
         }
     },
     "dependent_plugins": {}

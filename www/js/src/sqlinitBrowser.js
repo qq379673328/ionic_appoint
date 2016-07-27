@@ -20,7 +20,19 @@ app.service('SqlInitBrowser', function(){
 		"insert into `message` (`MSG`, `MSGTYPE`, `STATE`, `T_PATIENT_ID`, `CREATETIME`, `EXT`, `EFFECT_TIME`, `MSGDETAIL`) values('您已提交处方，请您到领药处领药！','13','1','1','2016-07-02 16:27:27','{\"idNo\":\"410182196810145478\",\"deptName\":\"内一科门诊\",\"patientId\":21,\"hosOrgName\":\"大厂回族自治县人民医院\",\"hosId\":2,\"hosOrgCode\":\"401989585\",\"clinicName\":null,\"deptCode\":\"0101\",\"clinNo\":\"13654452145_1\"}','2016-07-02 16:27:22','您的就诊\"大厂回族自治县人民医院 内一科门诊  \"，已经收方，正在配药，请尽快到“药房”拿药。');",
 		"insert into `message` (`MSG`, `MSGTYPE`, `STATE`, `T_PATIENT_ID`, `CREATETIME`, `EXT`, `EFFECT_TIME`, `MSGDETAIL`) values('感谢您的来诊，来看看我院推荐的服务吧！','17','0','1','2016-07-02 11:30:51','{\"idNo\":\"410182196810145478\",\"deptName\":\"内一科门诊\",\"patientId\":21,\"hosOrgName\":\"大厂回族自治县人民医院\",\"hosId\":2,\"hosOrgCode\":\"401989585\",\"clinicName\":null,\"deptCode\":\"0101\",\"clinNo\":\"13654452145_1\"}','2016-07-07 11:30:45','感谢您参与了我院的治疗，根据您的情况，为您推荐如下服务：');",
 		"insert into `message` (`MSG`, `MSGTYPE`, `STATE`, `T_PATIENT_ID`, `CREATETIME`, `EXT`, `EFFECT_TIME`, `MSGDETAIL`) values('您有一条新的消费记录，请查看！','18','1','1','2016-07-02 16:14:03','{\"idNo\":\"410182196810145478\",\"total\":210.00,\"cardNo\":\"0002306445\",\"cost\":230.00,\"costTime\":\"2016-01-02\"}','2016-07-02 16:13:57','您的就医卡0002306445于2016-01-02消费230.00元，余额210.00元。');",
-		"insert into `message` (`MSG`, `MSGTYPE`, `STATE`, `T_PATIENT_ID`, `CREATETIME`, `EXT`, `EFFECT_TIME`, `MSGDETAIL`) values('您的反馈很重要，快来评价吧！','20','0','1','2016-07-02 11:30:51','{\"idNo\":\"410182196810145478\",\"deptName\":\"内一科门诊\",\"patientId\":21,\"hosOrgName\":\"大厂回族自治县人民医院\",\"hosId\":2,\"hosOrgCode\":\"401989585\",\"clinicName\":null,\"deptCode\":\"0101\",\"clinNo\":\"13654452145_1\"}','2016-07-03 11:30:45','为了更好地提高服务质量，请您对本次就诊体验进行评价。');"
+		"insert into `message` (`MSG`, `MSGTYPE`, `STATE`, `T_PATIENT_ID`, `CREATETIME`, `EXT`, `EFFECT_TIME`, `MSGDETAIL`) values('您的反馈很重要，快来评价吧！','20','0','1','2016-07-02 11:30:51','{\"idNo\":\"410182196810145478\",\"deptName\":\"内一科门诊\",\"patientId\":21,\"hosOrgName\":\"大厂回族自治县人民医院\",\"hosId\":2,\"hosOrgCode\":\"401989585\",\"clinicName\":null,\"deptCode\":\"0101\",\"clinNo\":\"13654452145_1\"}','2016-07-03 11:30:45','为了更好地提高服务质量，请您对本次就诊体验进行评价。');",
+
+		//用药提醒表-drop
+		"DROP TABLE IF EXISTS drugalert;",
+		//用药提醒表-Create
+		"CREATE TABLE drugalert (time text, user_id text);",
+		//消息表-Insert
+		"insert into 'drugalert' (time, user_id) values ('03:00', '1');",
+		"insert into 'drugalert' (time, user_id) values ('03:30', '1');",
+		"insert into 'drugalert' (time, user_id) values ('09:30', '1');",
+		"insert into 'drugalert' (time, user_id) values ('11:30', '1');",
+		"insert into 'drugalert' (time, user_id) values ('14:00', '1');"
+
 	]};
 
 })

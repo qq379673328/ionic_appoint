@@ -21,9 +21,11 @@
     "cordova-plugin-console",
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    "org.apache.cordova.splashscreen",
+    "onesignal-cordova-plugin"
   ],
   "cordovaPlatforms": [
-	"android"
+    "android"
   ]
 }

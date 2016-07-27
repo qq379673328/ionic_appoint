@@ -186,7 +186,7 @@ angular.module('app.commonservices', [])
 			USER.INFO = info;
 		},
 		setUserId: function(id){//设置用户id
-			USER.USER_ID = id;
+			USER.USER_ID = id + "";
 		},
 		setToken: function(token){//设置用户token
 			USER.TOKEN = token;
@@ -211,7 +211,7 @@ angular.module('app.commonservices', [])
 	self.db = function () {
 		if (!_db) {
 			if (window.sqlitePlugin !== undefined) {
-				_db = window.sqlitePlugin.openDatabase({ name: APPCONFIG.DB_FILE, location: 2, createFromLocation: 1 });
+				_db = $cordovaSQLite.openDatabase({ name: APPCONFIG.DB_FILE, location: 2, createFromLocation: 1 });
 			} else {
 				// For debugging in the browser
 				_db = window.openDatabase(APPCONFIG.DB_FILE, "1.0", "Database", 200000);
@@ -224,7 +224,6 @@ angular.module('app.commonservices', [])
 	//执行sql
 	self.executeSql = function (query, parameters) {
 		var deferred = $q.defer();
-
 		$cordovaSQLite
 			.execute(self.db(), query, parameters)
 			.then(function (res) {
@@ -235,6 +234,7 @@ angular.module('app.commonservices', [])
 				return deferred.resolve(items);
 		}, function (err) {
 			$log.log(err.message);
+			UTIL_DIALOG.show(err.message);
 			return deferred.reject(err);
 		});
 		return deferred.promise;

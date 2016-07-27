@@ -70,9 +70,16 @@ app.service('UserService', function(UTIL_HTTP, UTIL_USER, $q){
 		editAvatarByBase64: function(avatar){
 			return UTIL_HTTP.post({
 				url: "/userinfo/editAvatar",
+				isShowLoading: false,
 				data: {
 					avatar: avatar
 				}
+			});
+		},
+		//获取头像-base64
+		getvatarByBase64: function(){
+			return UTIL_HTTP.post({
+				url: "/userinfo/avatar"
 			});
 		},
 		//反馈意见
