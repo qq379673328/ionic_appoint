@@ -5,11 +5,13 @@
 			<div class="col-80 col-center">
 				<b>{{outpatientRecord.diag}}</b>
 				<br/>
-				
+
 				{{outpatientRecord.hospitalName}}
 				&nbsp;&nbsp;
 				{{outpatientRecord.departmentName}}
 				<br/>
+				<span class="color-main">检验单{{tests.length}}</span>
+				&nbsp;&nbsp;
 				<span class="color-main">检查单{{checks.length}}</span>
 				&nbsp;&nbsp;
 				<span class="color-main">处方单{{prescribes.length}}</span>
@@ -23,13 +25,13 @@
 		</div>
 
 		<div class="padding">
-			
+
 			<div class="row bg-spe">
-				<a ng-click="current = 'Ele';" 
+				<a ng-click="current = 'Ele';"
 					class="col center border-right border-color-white href"
 					ng-class="{'color-main': current == 'Ele'}"
 					>电子病历</a>
-				<a ng-click="current = 'Test'" 
+				<a ng-click="current = 'Test'"
 					class="col center border-right border-color-white href"
 					ng-class="{'color-main': current == 'Test'}"
 					>检验单</a>
@@ -74,7 +76,7 @@
 				<br/>
 				<br/>
 
-			</div> 
+			</div>
 
 			<div ng-show="current == 'Test'">
 				<div ng-repeat="test in tests" class="margin">
@@ -139,10 +141,10 @@
 						{{preDetail.detailItemName}}
 						<br/>
 
-						
+
 						{{preDetail.drugTypeValue}}
 						&nbsp;&nbsp;
-						
+
 						{{preDetail.doseSingle}}
 						{{preDetail.doseUnit}}
 						&nbsp;&nbsp;
@@ -158,10 +160,10 @@
 						<br/>
 						{{preDetail.REMARK}}
 
-						
+
 					</div>
 				</div>
-				
+
 			</div>
 
 		</div>

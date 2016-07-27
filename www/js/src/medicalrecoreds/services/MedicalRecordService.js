@@ -10,9 +10,10 @@ app.service('MedicalRecordService', function(UTIL_HTTP){
 			});
 		},
 		//就诊记录列表-有处方数据
-		getOutpatientRecordsPrescribe: function(idNo, pageParams, hosOrgCode){
+		getOutpatientRecordsPrescribe: function(idNo, pageParams, hosOrgCode, preNo){
 			pageParams = pageParams || {};
 			pageParams.hosOrgCode = hosOrgCode;
+			pageParams.preNo = preNo;
 			return UTIL_HTTP.get({
 				url: "/medicalRecords-prescribedata/patient-" + idNo,
 				data: pageParams

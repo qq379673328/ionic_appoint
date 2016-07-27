@@ -29,7 +29,6 @@ app.controller('PatientEditCtrl', function($scope, $state, $stateParams, UTIL_DI
 			PatientService
 				.editPatient($scope.patient)
 				.then(function(data){
-					UTIL_DIALOG.show("编辑成功");
 					//跳转列表页
 					$state.go("patientList", null, {reload: true});
 			});
@@ -37,7 +36,6 @@ app.controller('PatientEditCtrl', function($scope, $state, $stateParams, UTIL_DI
 			PatientService
 				.addPatient($scope.patient)
 				.then(function(data){
-					UTIL_DIALOG.show("新增成功");
 					//跳转列表页
 					$state.go("patientList", null, {reload: true});
 			});

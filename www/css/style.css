@@ -18,9 +18,6 @@ menu, nav, output, ruby, section, summary,
 time, mark, audio, video{
 	font-family: '微软雅黑 Regular', '微软雅黑';
 }
-h1,h2,h3,h4,h5,h6,b{
-	color: #3A3838;
-}
 body a{
 	color: #666666;
 }
@@ -336,4 +333,8 @@ p.text2 {
 	color: #fff;
 	text-align: center;
 	padding: 5px;
+}
+/*星星评价*/
+.evaluate-select-item{
+	float: left;
 }

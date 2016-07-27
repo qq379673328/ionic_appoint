@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.ionictestworkspace839540" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>appoint_ionic</name>
-  <description>
-        百姓医院.
-  </description>
-  <author email="you@example.com" href="http://sinosoft.com.com/">
-      Your Name Here
-    </author>
-  <content src="index.html"/>
-  <access origin="*"/>
-  <preference name="webviewbounce" value="false"/>
-  <preference name="UIWebViewBounce" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="SplashScreenDelay" value="2000"/>
-  <preference name="FadeSplashScreenDuration" value="2000"/>
-  <preference name="android-minSdkVersion" value="16"/>
-  <preference name="BackupWebStorage" value="none"/>
-  <preference name="xwalkVersion" value="18+"/>
-  <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect"/>
-  <preference name="xwalkMode" value="embedded"/>
-  <preference name="xwalkMultipleApk" value="true"/>
-  <feature name="StatusBar">
-    <param name="ios-package" onload="true" value="CDVStatusBar"/>
-  </feature>
+	<name>appoint_ionic</name>
+	<description>
+				百姓医院.
+	</description>
+	<author email="you@example.com" href="http://sinosoft.com.com/">
+			Your Name Here
+		</author>
+	<content src="index.html"/>
+	<access origin="*"/>
+	<preference name="webviewbounce" value="false"/>
+	<preference name="UIWebViewBounce" value="false"/>
+	<preference name="DisallowOverscroll" value="true"/>
+	<preference name="SplashScreenDelay" value="2000"/>
+	<preference name="FadeSplashScreenDuration" value="2000"/>
+	<preference name="android-minSdkVersion" value="16"/>
+	<preference name="BackupWebStorage" value="none"/>
+	<preference name="xwalkVersion" value="18+"/>
+	<preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect"/>
+	<preference name="xwalkMode" value="embedded"/>
+	<preference name="xwalkMultipleApk" value="true"/>
+	<feature name="StatusBar">
+		<param name="ios-package" onload="true" value="CDVStatusBar"/>
+	</feature>
 </widget>

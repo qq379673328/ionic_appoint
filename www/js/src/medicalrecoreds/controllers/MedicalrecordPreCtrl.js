@@ -8,7 +8,8 @@ app.controller('MedicalrecordPreCtrl', function($scope, $state, $stateParams, AP
 	var offset = 0;
 
 	var idNo = $stateParams.idNo,
-		hosOrgCode = $stateParams.hosOrgCode;
+		hosOrgCode = $stateParams.hosOrgCode,
+		preNo = $stateParams.preNo;
 
 	$scope.items = [];
 
@@ -19,7 +20,7 @@ app.controller('MedicalrecordPreCtrl', function($scope, $state, $stateParams, AP
 			isRun = true;
 			MedicalRecordService.getOutpatientRecordsPrescribe(idNo, {
 				offset: offset
-			}, hosOrgCode)
+			}, hosOrgCode, preNo)
 			.then(function(data){
 				if(!data || data.length < APPCONFIG.PAGE_SIZE){
 					$scope.hasmore = false;

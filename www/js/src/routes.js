@@ -46,7 +46,7 @@ angular.module('app.routes', [])
 	//医院导航
 	.state('hosNav', {
 		url: '/hosNav',
-		params: {hos: null},
+		params: {hos: null, hosId: null},
 		templateUrl: 'js/src/hospital/views/hos_nav.html',
 		controller: "HosNavCtrl"
 	})
@@ -60,7 +60,7 @@ angular.module('app.routes', [])
 	//医院院内导航
 	.state('hosInnerNav', {
 		url: '/hosInnerNav',
-		params: {hos: null},
+		params: {hos: null,},
 		templateUrl: 'js/src/hospital/views/hos_inner_nav.html',
 		controller: "HosInnerNavCtrl"
 	})
@@ -136,7 +136,7 @@ angular.module('app.routes', [])
 	//门诊-处方明细
 	.state('medicalrecoredPre', {
 		url: '/medicalrecoredPre/:idNo',
-		params: {idNo: null, hosOrgCode: null},
+		params: {idNo: null, hosOrgCode: null, preNo: null},
 		templateUrl: 'js/src/medicalrecoreds/views/medicalrecord_pre.html',
 		controller: 'MedicalrecordPreCtrl'
 	})
@@ -206,6 +206,11 @@ angular.module('app.routes', [])
 		url: '/opinion',
 		templateUrl: 'js/src/user/views/opinion.html',
 		controller: 'OpinionCtrl'
+	})
+	//药房用药须知
+	.state('hosDrugNote', {
+		url: '/hosDrugNote',
+		templateUrl: 'js/src/system/views/hos_drug_note.html'
 	})
 
 	//登录页
@@ -303,6 +308,19 @@ angular.module('app.routes', [])
 		url:'/appointList',
 		templateUrl:'js/src/appoint/views/appoint_list.html',
 		controller:'AppointListCtrl'
+	})
+	//设置服药提醒
+	.state('drugAlert',{
+		url:'/drugAlert',
+		templateUrl:'js/src/system/views/drug_alert.html',
+		controller:'DrugAlertCtrl'
+	})
+	//就医评价
+	.state('outEvaluate',{
+		url:'/outEvaluate',
+		params: {hos: null, clinNo: null},
+		templateUrl:'js/src/system/views/out_evaluate.html',
+		controller:'OutEvaluateCtrl'
 	})
 
 	.state("other", {
