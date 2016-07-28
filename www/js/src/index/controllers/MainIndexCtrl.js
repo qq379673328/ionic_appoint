@@ -7,7 +7,7 @@ app.controller('MainIndexCtrl', function($scope, $state, NewsService, UserServic
 	};
 
 	//是否在加载数据
-    var isRun = false;
+	var isRun = false;
 
 	//加载数据
 	function loadData(){
@@ -34,25 +34,27 @@ app.controller('MainIndexCtrl', function($scope, $state, NewsService, UserServic
 	loadData();
 
 	$scope.viewLogin = function(){
-		if(UTIL_USER.isLogin()){
-			var confirmPopup = $ionicPopup.confirm({
-		       title: '提示',
-		       template: '您已登录，确认退出？',
-		       okText: "确认",
-		       okType: "button-balanced",
-		       cancelText: "取消",
-		       cancelType: "button-balanced"
-		     });
-		     confirmPopup.then(function(res) {
-		       if(res) {
-		         UserService.logout().then(function(){
-		         	$state.go("login");
-		         });
-		       }
-		     });
-		}else{
-			$state.go("login");
-		}
+		UTIL_USER.isLogin().then(function(isLogin){
+			if(isLogin){
+				var confirmPopup = $ionicPopup.confirm({
+					title: '提示',
+					template: '您已登录，确认退出？',
+					okText: "确认",
+					okType: "button-balanced",
+					cancelText: "取消",
+					cancelType: "button-balanced"
+				});
+				confirmPopup.then(function(res) {
+					if(res) {
+						UserService.logout().then(function(){
+							$state.go("login");
+						});
+					}
+				});
+			}else{
+				$state.go("login");
+			}
+		});
 	};
 
 })

@@ -53,7 +53,7 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
 
 })
 
-.run(function($ionicPlatform, $rootScope, $state, $location, $timeout, $ionicHistory, $cordovaToast, UTIL_USER, $ionicNavBarDelegate) {
+.run(function($ionicPlatform, $rootScope, $state, $location, $timeout, $ionicHistory, $cordovaToast, UTIL_USER, $ionicNavBarDelegate, $sqliteService, UTIL_DIALOG) {
 
 	$ionicPlatform.ready(function() {
 	// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -67,7 +67,13 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
 		StatusBar.styleDefault();
 	}
 
-	navigator.splashscreen.hide();
+	//初始化数据库
+	$sqliteService.db();
+
+	//启动画面
+	if(navigator.splashscreen){
+		navigator.splashscreen.hide();
+	}
 
 	//后退按钮事件
 	$ionicPlatform.registerBackButtonAction(function (e) {
@@ -119,20 +125,22 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
 	];
 	//监听页面切换-开始-判断页面是否需要登录
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-	if(toState.name == 'login') return;// 如果是进入登录界面则允许
-	for(var idx in filterStates){
-		var filterState = filterStates[idx];
-		if(filterState == toState.name){
-		// 如果用户不存在
-		if(!UTIL_USER.isLogin()){
-			event.preventDefault();// 取消默认跳转行为
-			$state.go("login",
-				{from:fromState.name, "fromParams": fromParams,
-				to: toState.name, "toParams": toParams});//跳转到登录界面
+		if(toState.name == 'login') return;// 如果是进入登录界面则允许
+		for(var idx in filterStates){
+			var filterState = filterStates[idx];
+			if(filterState == toState.name){
+				// 如果用户不存在
+				UTIL_USER.isLogin().then(function(isLogin){
+					if(!isLogin){
+						event.preventDefault();// 取消默认跳转行为
+						$state.go("login",
+							{from:fromState.name, "fromParams": fromParams,
+							to: toState.name, "toParams": toParams});//跳转到登录界面
+					}
+				});
+				break;
+			}
 		}
-		break;
-		}
-	}
 	});
 
 	//监听页面切换-完毕

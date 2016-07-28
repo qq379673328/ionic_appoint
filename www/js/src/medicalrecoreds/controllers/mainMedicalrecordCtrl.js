@@ -1,15 +1,20 @@
 //就诊记录主页面
-app.controller('MainMedicalrecordCtrl', function($scope, $stateParams, MedicalRecordService, PatientService, APPCONFIG) {
+app.controller('MainMedicalrecordCtrl', function($scope, $stateParams, MedicalRecordService, PatientService, UserService, APPCONFIG) {
 
 	//是否有更多
 	$scope.hasmore = true;
 	//是否在加载数据
-    var isRun = false;
-    //分页起始条数
-    var offset = 0;
+	var isRun = false;
+	//分页起始条数
+	var offset = 0;
 
 	$scope.patientId = $stateParams.patientId;
 	$scope.patient = $stateParams.patient;
+
+	//头像信息
+	UserService.getvatarByBase64().then(function(data){
+		$scope.imageBase64 = "data:image/jpeg;base64," + data;
+	});
 
 	//刷新页面
 	$scope.doRefresh = function(cb){
@@ -61,12 +66,12 @@ app.controller('MainMedicalrecordCtrl', function($scope, $stateParams, MedicalRe
 
 					});
 			}
-			
+
 		}
 	};
 
 	//加载更多
-	$scope.loadMore = function(){	
+	$scope.loadMore = function(){
 		if($scope.hasmore){
 			$scope.loadMedicalRecored(false);
 		}

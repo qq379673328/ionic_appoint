@@ -43,71 +43,69 @@ angular.module('app.commonservices', [])
 
 	function sendHttp(params){
 		if(!params) return;
-		//增加token
-		var token = UTIL_USER.getToken();
-		if(token){
-			if(params.data){
-				params.data.token = token;
-			}else{
-				params.data = {token: token};
-			}
-		}
-		//是否显示loading
-		var lastTimeout = null;
-		if(params.isShowLoading !== false){
-
-			//延迟显示loading
-			var loadingDefferTime = 500;
-			lastTimeout = setTimeout(function(){
-				UTIL_LOADING.show();
-			}, loadingDefferTime);
-		}
-
 		var deferred = $q.defer();
-		var promise = deferred.promise;
-
-		var request = {
-			url: APPCONFIG.SERVER_URL_PRE + params.url,
-			dataType: 'json'
-		};
-		params.type = params.type || "GET";
-		request.method = params.type;
-		if(params.type == "GET"){
-			request.params = params.data;
-		}else{
-			request.data = params.data;
-		}
-
-		$http(request).success(function(data){
-			if(lastTimeout){
-				clearTimeout(lastTimeout);
-				lastTimeout = null;
+		//增加token
+		UTIL_USER.getToken().then(function(token){
+			if(token){
+				if(params.data){
+					params.data.token = token;
+				}else{
+					params.data = {token: token};
+				}
 			}
-			UTIL_LOADING.close();
-			if(!data) return;
-			if(data.success === "1"){//成功
-				deferred.resolve(data.data);
-			}else if(data.success === "0"){//失败
+			//是否显示loading
+			var lastTimeout = null;
+			if(params.isShowLoading !== false){
+				//延迟显示loading
+				var loadingDefferTime = 500;
+				lastTimeout = setTimeout(function(){
+					UTIL_LOADING.show();
+				}, loadingDefferTime);
+			}
+
+			var request = {
+				url: APPCONFIG.SERVER_URL_PRE + params.url,
+				dataType: 'json'
+			};
+			params.type = params.type || "GET";
+			request.method = params.type;
+			if(params.type == "GET"){
+				request.params = params.data;
+			}else{
+				request.data = params.data;
+			}
+
+			$http(request).success(function(data){
+				if(lastTimeout){
+					clearTimeout(lastTimeout);
+					lastTimeout = null;
+				}
+				UTIL_LOADING.close();
+				if(!data) return;
+				if(data.success === "1"){//成功
+					deferred.resolve(data.data);
+				}else if(data.success === "0"){//失败
+					if(params.isShowLoading !== false){
+						UTIL_DIALOG.show(data.msg || "加载失败");
+					}
+					deferred.reject("加载失败");
+				}else if(data.success === "403"){//未登陆
+					$state.go("login");
+				}
+			}).error(function(data, header, config, status){
+				if(lastTimeout){
+					clearTimeout(lastTimeout);
+					lastTimeout = null;
+				}
+				UTIL_LOADING.close();
 				if(params.isShowLoading !== false){
 					UTIL_DIALOG.show(data.msg || "加载失败");
 				}
 				deferred.reject("加载失败");
-			}else if(data.success === "403"){//未登陆
-				$state.go("login");
-			}
-		}).error(function(data, header, config, status){
-			if(lastTimeout){
-				clearTimeout(lastTimeout);
-				lastTimeout = null;
-			}
-			UTIL_LOADING.close();
-			if(params.isShowLoading !== false){
-				UTIL_DIALOG.show(data.msg || "加载失败");
-			}
-			deferred.reject("加载失败");
+			});
 		});
 
-		return promise;
+		return deferred.promise;
 	}
 
 	return {
@@ -148,75 +146,96 @@ angular.module('app.commonservices', [])
 })
 
 //公共-用户状态
-.factory('UTIL_USER', function(){
+.factory('UTIL_USER', function($q, SPEDATA){
 
-	var USER = {
-		ISLOGIN: false,//是否登录
-		USER_ID: null,//用户id
-		TOKEN: null,//token
-		INFO: null//用户信息
+	var userInfoKey = "user_info";
+
+	//获取登录用户信息
+	var getUserInfo = function(key){
+		var deferred = $q.defer();
+		SPEDATA.get(userInfoKey).then(function(data){
+			if(data){
+				var item = JSON.parse(data);
+				if(key){
+					deferred.resolve(item[key]);
+				}else{
+					deferred.resolve(item);
+				}
+			}else{
+				deferred.resolve(null);
+			}
+		});
+		return deferred.promise;
 	};
 
 	return {
+		//是否登录
 		isLogin: function(){
-			return USER.ISLOGIN;//是否登录
+			var deferred = $q.defer();
+			getUserInfo("expire").then(function(expire){
+				var isLogin = false;
+				if(!expire){
+					isLogin = false;
+				}else{
+					if(new Date(expire) <= new Date().getTime()){
+						isLogin = false;
+					}else{
+						isLogin = true;
+					}
+				}
+				deferred.resolve(isLogin);
+			});
+			return deferred.promise;
 		},
+		//获取用户id
 		getUserId: function(){
-			return USER.USER_ID;//用户id
+			var deferred = $q.defer();
+			getUserInfo("id").then(function(id){
+				deferred.resolve(id + "");
+			});
+			return deferred.promise;
 		},
+		//user info
 		getUser: function(){
-			return USER.INFO;//用户信息
+			var deferred = $q.defer();
+			getUserInfo().then(function(info){
+				deferred.resolve(info);
+			});
+			return deferred.promise;
 		},
+		//token
 		getToken: function(){
-			return USER.TOKEN;//token
+			var deferred = $q.defer();
+			getUserInfo("token").then(function(token){
+				deferred.resolve(token);
+			});
+			return deferred.promise;
 		},
-		IS_Expire: function(){//用户是否过期
-			if(!USER.INFO) return true;
-			var expireDate = USER.INFO.expire;
-			if(!expireDate) return true;
-			if(expireDate.getTime() <= new Date().getTime()){
-				return true;
-			}
-			return false;
+		//设置用户信息
+		setUserInfo: function(info){
+			SPEDATA.set(userInfoKey, JSON.stringify(info));
 		},
-		setLoginState: function(state){//设置用户登录状态
-			USER.ISLOGIN = state;
-		},
-		setUserInfo: function(info){//设置用户信息
-			USER.INFO = info;
-		},
-		setUserId: function(id){//设置用户id
-			USER.USER_ID = id + "";
-		},
-		setToken: function(token){//设置用户token
-			USER.TOKEN = token;
-		},
-		logout: function(){//用户登出
-			USER = {
-				ISLOGIN: false,//是否登录
-				USER_ID: null,//用户id
-				TOKEN: null,
-				INFO: null//用户信息
-			};
+		//用户登出
+		logout: function(){
+			SPEDATA.del(userInfoKey);
 		}
 	};
 })
 
 //公共-sqlite存储
-.service("$sqliteService", function($q, $cordovaSQLite, APPCONFIG, $log, SqlInitBrowser){
+.service("$sqliteService", function($q, $cordovaSQLite, APPCONFIG, $log, SqlInitBrowser, SqlInitMobile, UTIL_DIALOG){
 
 	var self = this;
 	var _db;
-
 	self.db = function () {
 		if (!_db) {
 			if (window.sqlitePlugin !== undefined) {
-				_db = $cordovaSQLite.openDatabase({ name: APPCONFIG.DB_FILE, location: 2, createFromLocation: 1 });
+				_db = window.sqlitePlugin.openDatabase({ name: APPCONFIG.DB_FILE, location: 2, createFromLocation: 1 });
 			} else {
 				// For debugging in the browser
 				_db = window.openDatabase(APPCONFIG.DB_FILE, "1.0", "Database", 200000);
-				self.initBrowserDb();
 			}
+			self.initTables();
 		}
 		return _db;
 	};
@@ -231,37 +250,75 @@ angular.module('app.commonservices', [])
 				for (var i = 0; i < res.rows.length; i++) {
 					items.push(res.rows.item(i));
 				}
-				return deferred.resolve(items);
+				deferred.resolve(items);
 		}, function (err) {
 			$log.log(err.message);
 			UTIL_DIALOG.show(err.message);
-			return deferred.reject(err);
+			deferred.reject(err);
 		});
 		return deferred.promise;
 	};
 
-	//初始化浏览器数据库-测试用
-	self.initBrowserDb = function () {
+	//初始化数据库
+	self.initTables = function () {
 		var deferred = $q.defer();
-		if (window.sqlitePlugin === undefined) {
-			self.db().transaction(function (tx) {
-				var sqls = SqlInitBrowser.sqls;
-				for (var i = 0; i < sqls.length; i++) {
-					var query = sqls[i].replace(/\\n/g, '\n');
-					tx.executeSql(query);
-				}
-			}, function (error) {
-				deferred.reject(error);
-			}, function () {
-				deferred.resolve("OK");
-			});
+		var sqls;
+		if (window.sqlitePlugin !== undefined) {
+			sqls = SqlInitMobile.sqls;
+		} else {
+			sqls = SqlInitBrowser.sqls;
 		}
-		else {
+		self.db().transaction(function (tx) {
+			for (var i = 0; i < sqls.length; i++) {
+				var query = sqls[i].replace(/\\n/g, '\n');
+				tx.executeSql(query);
+			}
+		}, function (error) {
+			deferred.reject(error);
+		}, function () {
 			deferred.resolve("OK");
-		}
+		});
 		return deferred.promise;
 	};
 
+})
+
+//公共-从本地存储sqllite中读取、设置数据
+.factory('SPEDATA', function($q, $sqliteService){
+
+	return {
+		//读取数据
+		get: function(key){
+			var deferred = $q.defer();
+			$sqliteService.executeSql(
+				"select * from spedata where key = ? ", [key])
+			.then(function(data){
+				var value;
+				if(data && data.length > 0){
+					value = data[0].value;
+				}
+				deferred.resolve(value);
+			});
+			return deferred.promise;
+		},
+		//设置数据
+		set: function(key, value){
+			//删除
+			$sqliteService.executeSql(
+				"delete from spedata where key = ? ", [key])
+			.then(function(){
+				//插入
+				$sqliteService.executeSql(
+					"insert into spedata (key, value) values (?, ?) ", [key, value]);
+			});
+		},
+		//删除数据
+		del: function(key){
+			//删除
+			$sqliteService.executeSql(
+				"delete from spedata where key = ? ", [key]);
+		}
+	};
 })
 
 ;

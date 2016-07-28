@@ -14,42 +14,56 @@ app.service('MessageService',
 				isShowLoading: false
 			}).then(function(data){
 				if(data){
-					for(var i in data){
-						var item = data[i];
-						var sql = "insert into message (msg, msgtype, state, " 
-						+ " t_patient_id, ext, msgdetail, EFFECT_TIME, CREATETIME) values (?,?,?,?,?,?,?,?)";
-						var params = [
-							item.msg, item.msgtype,
-							MESSAGE_STATE_UNREAD, UTIL_USER.getUserId(),
-							item.ext, item.msgdetail,
-							item.effectTime, item.createtime
-						];
-						$sqliteService.executeSql(sql, params);
-					}
+					UTIL_USER.getUserId().then(function(userId){
+						for(var i in data){
+							var item = data[i];
+							var sql = "insert into message (msg, msgtype, state, "
+							+ " t_patient_id, ext, msgdetail, EFFECT_TIME) values (?,?,?,?,?,?,?)";
+							var params = [
+								item.msg, item.msgtype + "",
+								MESSAGE_STATE_UNREAD, userId,
+								item.ext, item.msgDetail,
+								item.effectTime
+							];
+							$sqliteService.executeSql(sql, params);
+						}
+						deferred.resolve();
+					});
+				}else{
+					deferred.resolve();
 				}
-				return deferred.resolve();
 			});
 			return deferred.promise;
 		},
 		//从本地获取数据
 		getMessageFromLocal: function(params){
-			var queryParams = [UTIL_USER.getUserId(), 10, 0];
-			if(params && params.offset != null){
-				queryParams[2] = params.offset;
-			}
-			var sql = "select * from message where t_patient_id = ? order by createtime limit ? offset ?";
-			return $sqliteService.executeSql(sql, queryParams);
+			var deferred = $q.defer();
+			UTIL_USER.getUserId().then(function(userId){
+				var queryParams = [userId, 10, 0];
+				if(params && params.offset != null){
+					queryParams[2] = params.offset;
+				}
+				var sql = "select * from message where t_patient_id = ? order by createtime desc limit ? offset ?";
+				$sqliteService.executeSql(sql, queryParams)
+				.then(function(data){
+					deferred.resolve(data);
+				});
+			});
+			return deferred.promise;
 		},
 		//从本地获取未读消息数
 		getUnreadMessageCountFromLocal: function(){
-			var sql = "select count(1) as cou from message where t_patient_id = ? and state = ? ";
 			var deferred = $q.defer();
-			$sqliteService.executeSql(sql, [UTIL_USER.getUserId(), "0"]).then(function(rows){
+			var sql = "select count(1) as cou from message where t_patient_id = ? and state = ? ";
+			UTIL_USER.getUserId().then(function(userId){
+				$sqliteService.executeSql(sql, [userId, "0"])
+				.then(function(rows){
 					if(rows && rows.length > 0){
-						return deferred.resolve(rows[0].cou);	
+						deferred.resolve(rows[0].cou);
 					}else{
-						return deferred.resolve(0);
+						deferred.resolve(0);
 					}
+				});
 			});
 			return deferred.promise;
 		},
@@ -59,5 +73,5 @@ app.service('MessageService',
 			return $sqliteService.executeSql(sql, [MESSAGE_STATE_READ, id]);
 		}
 	};
-		
+
 });

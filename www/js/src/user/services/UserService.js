@@ -4,7 +4,6 @@ app.service('UserService', function(UTIL_HTTP, UTIL_USER, $q){
 		//登录
 		login : function(params){
 			var deferred = $q.defer();
-
 			UTIL_HTTP.post({
 				url: "/login",
 				data: params
@@ -15,30 +14,26 @@ app.service('UserService', function(UTIL_HTTP, UTIL_USER, $q){
 					var expire = data.expire;
 					var expireDate = new Date();
 					expireDate.setSeconds(expireDate.getSeconds() + expire);
-					UTIL_USER.setToken(data.token);
-					UTIL_USER.setUserId(data.userId),
 					UTIL_USER.setUserInfo({
 						id: data.userId,
 						token: data.token,
 						expire: expireDate
-					}),
-					UTIL_USER.setLoginState(true);
-
-					return deferred.resolve();
-
+					});
 				}
+				deferred.resolve();
 			});
-
 			return deferred.promise;
 		},
 		//登出
 		logout : function(){
 			var deferred = $q.defer();
-			UTIL_HTTP.post({
-				url: "/logout/" + UTIL_USER.getToken()
-			}).then(function(data){
-				UTIL_USER.logout();
-				return deferred.resolve();
+			UTIL_USER.getToken().then(function(token){
+				UTIL_HTTP.post({
+					url: "/logout/" + token
+				}).then(function(data){
+					UTIL_USER.logout();
+					deferred.resolve();
+				});
 			});
 			return deferred.promise;
 		},
@@ -56,7 +51,7 @@ app.service('UserService', function(UTIL_HTTP, UTIL_USER, $q){
 			});
 		},
 		//修改密码
-		editPassword: function(oldPwd, newPwd, 	dupNewPwd){
+		editPassword: function(oldPwd, newPwd, dupNewPwd){
 			return UTIL_HTTP.post({
 				url: "/userinfo/editpwd",
 				data: {

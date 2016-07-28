@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var debug = require('gulp-debug');
 var gutil = require('gulp-util');
 var bower = require('bower');
 var concat = require('gulp-concat');
@@ -21,6 +22,7 @@ gulp.task('minify', function (){
 	 return gulp.src(paths.js_src)
 		.pipe(concat('main.js'))
 		.pipe(gulp.dest(paths.js_build))
+		.pipe(debug({title: 'file:'}))
 		.pipe(uglify())
 		.pipe(rename('main.min.js'))
 		.pipe(gulp.dest(paths.js_build));
