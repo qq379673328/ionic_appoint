@@ -77,6 +77,9 @@
         },
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.ionicframework.ionictestworkspace839540"
+        },
+        "cordova-plugin-background-mode": {
+            "PACKAGE_NAME": "cn.com.sinosoft.ionic.appoint"
         }
     },
     "dependent_plugins": {}

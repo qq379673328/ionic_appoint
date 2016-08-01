@@ -15,6 +15,7 @@ app.service('MessageService',
 			}).then(function(data){
 				if(data){
 					UTIL_USER.getUserId().then(function(userId){
+						var newMessage;
 						for(var i in data){
 							var item = data[i];
 							var sql = "insert into message (msg, msgtype, state, "
@@ -26,8 +27,11 @@ app.service('MessageService',
 								item.effectTime
 							];
 							$sqliteService.executeSql(sql, params);
+							if(i == 0){
+								newMessage = item.msg;
+							}
 						}
-						deferred.resolve();
+						deferred.resolve(newMessage);
 					});
 				}else{
 					deferred.resolve();

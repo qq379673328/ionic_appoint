@@ -53,14 +53,26 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
 
 })
 
-.run(function($ionicPlatform, $rootScope, $state, $location, $timeout, $ionicHistory, $cordovaToast, UTIL_USER, $ionicNavBarDelegate, $sqliteService, UTIL_DIALOG) {
+.run(function($ionicPlatform, $rootScope, $state, $location, $timeout, $ionicHistory, $cordovaToast, UTIL_USER, $ionicNavBarDelegate, $sqliteService, UTIL_DIALOG, MessageService) {
 
 	$ionicPlatform.ready(function() {
-	// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-	// for form inputs)
-	if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+	if (window.cordova && window.cordova.plugins) {
 		cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 		cordova.plugins.Keyboard.disableScroll(true);
+
+		cordova.plugins.backgroundMode.setDefaults({ text:'百姓医院'});
+		cordova.plugins.backgroundMode.enable();
+
+		//进入后台
+		cordova.plugins.backgroundMode.onactivate = function () {
+			clearTimeout(timeOutMessage);
+			refreshMessage(true);
+		};
+		//进入前台
+		cordova.plugins.backgroundMode.ondeactivate  = function () {
+			clearTimeout(timeOutMessage);
+			refreshMessage(false);
+		};
 	}
 	if (window.StatusBar) {
 		// org.apache.cordova.statusbar required
@@ -70,6 +82,28 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
 	//初始化数据库
 	$sqliteService.db();
 
+	//刷新消息
+	//refreshMessage(false);
+	var timeOutMessage;
+	function refreshMessage(isBack){
+		console.dir("刷新消息" + isBack);
+		timeOutMessage = setTimeout(function () {
+			MessageService.refreshServerMessages().then(function(message){
+				if(message && isBack){
+					cordova.plugins.backgroundMode.configure({
+						text: message
+					});
+				}
+				refreshMessage(isBack);
+			}).then(function(){
+				con
+				refreshMessage(isBack);
+			});
+		}, 1000 * 5);
+	}
+
+
+
 	//启动画面
 	if(navigator.splashscreen){
 		navigator.splashscreen.hide();
@@ -78,7 +112,7 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
 	//后退按钮事件
 	$ionicPlatform.registerBackButtonAction(function (e) {
 		//判断处于哪个页面时双击退出
-		if ($location.path() == '/app/index') {
+		if ($location.path() == '/index') {
 			if ($rootScope.backButtonPressedOnceToExit) {
 				ionic.Platform.exitApp();
 			} else {
@@ -154,13 +188,15 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'app.routes', 'app.common
 app.config(function($ionicConfigProvider) {
 	//tabs位置
 	$ionicConfigProvider.tabs.position("bottom");
+	//原生滚动
+	$ionicConfigProvider.scrolling.jsScrolling(false);
 });
 
 //常量
 app.constant('APPCONFIG', {
 	//服务端地址
-	//SERVER_URL_PRE: "http://localhost:8100/api",//浏览器调试
-	SERVER_URL_PRE: "http://192.168.1.252:9401/api-mobile/api",//打包发布
+	SERVER_URL_PRE: "http://localhost:8100/api",//浏览器调试
+	//SERVER_URL_PRE: "http://192.168.1.252:9401/api-mobile/api",//打包发布
 	//分页加载每页参数
 	PAGE_SIZE: 10,
 	//本地数据库
