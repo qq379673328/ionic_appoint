@@ -23,9 +23,9 @@ gulp.task('minify', function (){
 		.pipe(concat('main.js'))
 		.pipe(gulp.dest(paths.js_build))
 		.pipe(debug({title: 'file:'}))
-		.pipe(uglify())
-		.pipe(rename('main.min.js'))
-		.pipe(gulp.dest(paths.js_build));
+		//.pipe(uglify())
+		//.pipe(rename('main.min.js'))
+		//.pipe(gulp.dest(paths.js_build));
 });
 gulp.task('watch', function() {
 	gulp.watch(paths.js_src, ['minify']);

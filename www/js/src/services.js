@@ -4,22 +4,63 @@ angular.module('app.commonservices', [])
 公共组件
 */
 //公共-消息
-.factory('UTIL_DIALOG', function($ionicPopup, $cordovaToast){
+.factory('UTIL_MESSAGE', function($ionicPopup, $cordovaToast, APPCONFIG){
+
+	// 是否web环境
+	var isWeb = APPCONFIG.IS_WEB,
+		elToastGloId = "EL_TOAST_GLO",// toast id
+		TIME_TOAST_LIVE = 3000,// toast存在时间
+		toastTimeOut = null
+		;
+
+	// 显示toast消息
+	function showWebToastMessage(message){
+		var elToast = getToastElement();
+		var newMsg = null;
+		if(!elToast || elToast.length == 0){
+			newMsg = message;
+			angular.element(document).find("body")
+			.append("<div id='"
+				+ elToastGloId + "' class='ag-toast'>"
+				+ newMsg + "</div>");
+		}else{
+			var oldMsg = elToast.html();
+			newMsg = oldMsg + "<br/>" + message;
+			elToast.html(newMsg);
+			if(toastTimeOut){
+				clearTimeout(toastTimeOut);
+			}
+		}
+		toastTimeOut = setTimeout(function(){
+			removeWebToastMessage();
+			toastTimeOut = null;
+		}, TIME_TOAST_LIVE);
+
+	}
+	// 移除消息
+	function removeWebToastMessage(){
+		var el = getToastElement();
+		removeElement(el);
+	}
+	function removeElement(_element){
+		if(!_element) return;
+		var _parentElement = _element.parentNode;
+		if(_parentElement){
+			_parentElement.removeChild(_element);
+		}
+	}
+	function getToastElement(){
+		return document.getElementById(elToastGloId);
+	}
+
 	return {
-		//弹出消息
-		show: function(message, title){
-			$ionicPopup.alert({
-				title: title || "提示信息",
-				buttons: [{
-					text: '确认',
-					type: 'button-balanced'
-				}],
-				template: message
-			});
-		},
-		//显示消息
-		alert: function(message){
-			$cordovaToast.showShortTop(message)
+		// 显示消息提示
+		show: function(message){
+			if(!isWeb){
+				$cordovaToast.showShortBottom(message)
+			}else{
+				showWebToastMessage(message);
+			}
 		}
 	};
 })
@@ -39,7 +80,7 @@ angular.module('app.commonservices', [])
 })
 
 //公共-http
-.factory('UTIL_HTTP', function($http, $q, $state, UTIL_LOADING, UTIL_DIALOG, UTIL_USER, APPCONFIG ){
+.factory('UTIL_HTTP', function($http, $q, $state, UTIL_LOADING, UTIL_MESSAGE, UTIL_USER, APPCONFIG ){
 
 	function sendHttp(params){
 		if(!params) return;
@@ -86,7 +127,7 @@ angular.module('app.commonservices', [])
 					deferred.resolve(data.data);
 				}else if(data.success === "0"){//失败
 					if(params.isShowLoading !== false){
-						UTIL_DIALOG.show(data.msg || "加载失败");
+						UTIL_MESSAGE.show(data.msg || "加载失败");
 					}
 					deferred.reject("加载失败");
 				}else if(data.success === "403"){//未登陆
@@ -99,7 +140,7 @@ angular.module('app.commonservices', [])
 				}
 				UTIL_LOADING.close();
 				if(params.isShowLoading !== false){
-					UTIL_DIALOG.show(data.msg || "加载失败");
+					UTIL_MESSAGE.show(data.msg || "加载失败");
 				}
 				deferred.reject("加载失败");
 			});
@@ -223,7 +264,7 @@ angular.module('app.commonservices', [])
 })
 
 //公共-sqlite存储
-.service("$sqliteService", function($q, $cordovaSQLite, APPCONFIG, $log, SqlInitBrowser, SqlInitMobile, UTIL_DIALOG){
+.service("$sqliteService", function($q, $cordovaSQLite, APPCONFIG, $log, SqlInitBrowser, SqlInitMobile, UTIL_MESSAGE){
 
 	var self = this;
 	var _db;
@@ -253,7 +294,7 @@ angular.module('app.commonservices', [])
 				deferred.resolve(items);
 		}, function (err) {
 			$log.log(err.message);
-			UTIL_DIALOG.show(err.message);
+			UTIL_MESSAGE.show(err.message);
 			deferred.reject(err);
 		});
 		return deferred.promise;

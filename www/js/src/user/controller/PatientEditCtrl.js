@@ -1,5 +1,5 @@
  //就诊人编辑、新增
-app.controller('PatientEditCtrl', function($scope, $state, $stateParams, UTIL_DIALOG, PatientService) {
+app.controller('PatientEditCtrl', function($scope, $state, $stateParams, PatientService) {
 
 	//下拉控件
 	$scope.selectData = {
